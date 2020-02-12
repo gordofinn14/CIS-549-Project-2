@@ -290,7 +290,7 @@ void ip_address_change(char* in_filename, char* output_filename)
         dst_ip_2nd_digit = (unsigned int)one_pkt[31];
         dst_ip_3rd_digit = (unsigned int)one_pkt[32];
         dst_ip_4th_digit = (unsigned int)one_pkt[33];
-
+       
         if (dst_ip_1st_digit == 192 && dst_ip_2nd_digit == 11 && dst_ip_3rd_digit == 68 && dst_ip_4th_digit == 196) {
             one_pkt[30] = 192;
             one_pkt[31] = 11;
@@ -424,6 +424,102 @@ void tcp_port_change(char *in_filename, char *out_filename)
     //
     printf("You need to add your code her for Problem 1\n");
     printf("You may add more supporting functions if needed, but keep this function name unmodified.\n");
+FILE *fd_in, *fd_out;
+    unsigned int file_header[6], pkt_header[4], captured_len;
+    unsigned char one_pkt[MAX_PKT_LEN];
+    unsigned int src_ip_1st_digit, src_ip_2nd_digit, src_ip_3rd_digit, src_ip_4th_digit;
+    unsigned int dst_ip_1st_digit, dst_ip_2nd_digit, dst_ip_3rd_digit, dst_ip_4th_digit;
+    unsigned int src_port_num, dst_port_num;
+    unsigned int seq_n = 0, ack_n = 0;
+    unsigned int prot_type;
+    unsigned int already_seen = 0;
+    unsigned int curr_port = 0x87;
+    unsigned char src_port_num_char[2]; //NEW
+    unsigned char dst_port_num_char[2]; //NEW
+    unsigned int flg_1st_digit, flg_2nd_digit;
+  
+    fd_in = fopen(in_filename, "rb");
+    if (fd_in < 0) {
+        perror("Unable to open input file");
+        exit(1);
+    }
+
+    fd_out = fopen(out_filename, "wb");
+    if (fd_out < 0) {
+        perror("Unable to open output file");
+        exit(1);
+    }
+
+    if (fread(file_header, sizeof(unsigned int), 6, fd_in) == 0) {
+        perror("File header Error");
+        exit(1);
+    }
+
+    fwrite(file_header, sizeof(unsigned int), 6, fd_out);
+
+    while (!feof(fd_in)) {
+        fread(pkt_header, sizeof(unsigned int), 4, fd_in);
+        captured_len = pkt_header[2];
+
+        fread(&one_pkt[0], sizeof(unsigned char), captured_len, fd_in);
+
+        src_ip_1st_digit = (unsigned int)one_pkt[26];
+        src_ip_2nd_digit = (unsigned int)one_pkt[27];
+        src_ip_3rd_digit = (unsigned int)one_pkt[28];
+        src_ip_4th_digit = (unsigned int)one_pkt[29];
+        dst_ip_1st_digit = (unsigned int)one_pkt[30];
+        dst_ip_2nd_digit = (unsigned int)one_pkt[31];
+        dst_ip_3rd_digit = (unsigned int)one_pkt[32];
+        dst_ip_4th_digit = (unsigned int)one_pkt[33];
+        prot_type = (unsigned int)one_pkt[23];
+        src_port_num = bits_to_ui((char*)memcpy(src_port_num_char, &one_pkt[TCP_SRC_PORT], 2), 2, 0); 
+        dst_port_num = bits_to_ui((char*)memcpy(dst_port_num_char, &one_pkt[TCP_DST_PORT], 2), 2, 0); 
+        flg_1st_digit = (unsigned int)one_pkt[46];
+        flg_2nd_digit = (unsigned int)one_pkt[47];
+        
+
+        if (dst_ip_1st_digit == 192 && dst_ip_2nd_digit == 11 && dst_ip_3rd_digit == 68 && dst_ip_4th_digit == 196 && prot_type == 6) {
+            //one_pkt[30] = 192;
+            //one_pkt[31] = 11;
+            //one_pkt[32] = 68;
+            //one_pkt[33] = 1;
+     		if (flg_1st_digit == 128 && flg_2nd_digit == 2 && dst_port_num != already_seen) {
+			already_seen = dst_port_num;
+                        one_pkt[TCP_DST_PORT] = 0x13;
+			curr_port++;
+                        one_pkt[TCP_DST_PORT+1] = curr_port;
+		}
+		else {
+			one_pkt[TCP_DST_PORT] = 0x13;
+			one_pkt[TCP_DST_PORT+1] = curr_port;
+		}
+        }
+
+        if (src_ip_1st_digit == 192 && src_ip_2nd_digit == 11 && src_ip_3rd_digit == 68 && src_ip_4th_digit == 196 && prot_type == 6) {
+            //one_pkt[26] = 192;
+            //one_pkt[27] = 11;
+            //one_pkt[28] = 68;
+            //one_pkt[29] = 1;
+    		if (flg_1st_digit == 128 && flg_2nd_digit == 2 && src_port_num != already_seen) {
+			already_seen = src_port_num;
+                        one_pkt[TCP_SRC_PORT] = 0x13;
+			curr_port++;
+                        one_pkt[TCP_SRC_PORT+1] = curr_port;
+		}
+		else {
+			one_pkt[TCP_SRC_PORT] = 0x13;
+			one_pkt[TCP_SRC_PORT+1] = curr_port;
+		}
+        }
+
+        if (!feof(fd_in)) {
+            fwrite(pkt_header, sizeof(unsigned int), 4, fd_out);
+            fwrite(one_pkt, sizeof(unsigned char), captured_len, fd_out);
+        }
+    }
+
+    fclose(fd_in);
+    fclose(fd_out);
 }
 
 
