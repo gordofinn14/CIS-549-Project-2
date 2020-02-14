@@ -482,8 +482,8 @@ void tcp_analysis(char *in_filename, char *out_filename)
 			src_ip_4th_digit == (unsigned int)one_pkt[33] && src_port_num == bits_to_ui(memcpy(dst_port_num_char,&one_pkt[TCP_DST_PORT],2),2,0))
 		    {
 		    	packets++;
-			bytes=+captured_len;
-			user_bytes=+(captured_len-((unsigned int)one_pkt[14]&0x0f)*4-((unsigned int)one_pkt[46]>>4&0x0f)*4-16);
+			bytes+=captured_len;
+			user_bytes+=(captured_len-((unsigned int)one_pkt[14]&0x0f)*4-((unsigned int)one_pkt[46]>>4&0x0f)*4-16);
 			//printf("%d\n",((unsigned int)one_pkt[14]&0x0f)*4);
 			//printf("%d\n",((unsigned int)one_pkt[46]>>4&0x0f)*4);
 
