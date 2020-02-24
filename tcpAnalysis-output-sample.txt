@@ -1,6 +1,0 @@
-TCP session count, serverIP, clientIP, serverPort, clientPort, num of packetSent(server->client), TotalIPtrafficBytesSent(server->client), TotaluserTrafficBytesSent(server-> client), sessionDuration, bps_IPlayerThroughput(server->client), bps_Goodput(server->client)
-=========================================================================================================================
-1	10.168.207.106	192.11.68.196	80	38294	75	1041	1012	0.32525	256832.63309	249650.53729	
-2	10.168.207.107	192.11.68.196	80	38296	76	1056	1050	0.44260	189497.88621	184315.48267	
-3	10.168.207.108	192.11.68.196	80	38298	77	1057	1718	0.26636	324922.81404	352840.40154	
-
