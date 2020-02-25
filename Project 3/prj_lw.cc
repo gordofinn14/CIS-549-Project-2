@@ -11,6 +11,8 @@
 #include <string>
 #include <cassert>
 #include <list>
+#include <random>
+#include <stdlib.h>
 #include "ns3/core-module.h"
 #include "ns3/network-module.h"
 #include "ns3/internet-module.h"
@@ -130,7 +132,6 @@ int main(int argc, char *argv[]) {
     int tcpSendBufBytes = 10240000;   // bytes
     int tcpRcvBufBytes =  64000;  // TCP receive buffer size byte, default = 64000 Bytes
 
-
     // if nStreams == 1 then phyRate can be up to HtMcs7
     // if nStreams == 2 then phyRate can be up to HtMcs15
     uint8_t nStreams = 1;    // wifi number of stream
@@ -146,12 +147,16 @@ int main(int argc, char *argv[]) {
     cmd.AddValue ("Transport", "Transport Layer Protocol (TCP = 1, UDP = 2) (Default: TCP)", Transport);
     cmd.AddValue ("DataRateforUDP", "Data Rate for UDP (Defaule = 100Mb/s)", DataRateforUDP);
     cmd.AddValue ("OutputFileName", "The Prefix Output File Name (Default: scratch/CIS549)", prefix_file_name);
-
+    
     //////////////////////////////////////
     // cis549: Project 3 : Problem 3
     // Add options as specified in the assignment sheet
 
     // EDIT START : 5 lines of code
+    cmd.AddValue ("wifiMcs", "Wi-Fi configuration", phyRate);
+    cmd.AddValue ("tcpRcvBufBytes", "TCP receive buffer size in bytes", tcpRcvBufBytes);
+    cmd.AddValue ("delayValueforRHtoR", "One way link delay in msec between the Remote Host (Server) and the Router", delayValueBtwnRemoteHostAndRouter);
+    cmd.AddValue ("delayValueforWifi", "Link delay in msec between the router and Wifi AP", delayValueforWifi);
 
 
 
@@ -256,9 +261,9 @@ int main(int argc, char *argv[]) {
     //
     //EDIT START
     double ueXmin = 1.0;
-    //double ueXmax = 8.0;     //EDIT: uncomment for the UE placement problem
+    double ueXmax = 8.0;     //EDIT: uncomment for the UE placement problem
     double ueYmin = 12;        //EDIT: uncomment for the UE placement problem
-    //double ueYmax = 30;
+    double ueYmax = 30;
 
     // Generate a random number for X and Y coordination for each of UEs
     // in here using the above min and max boundary
@@ -269,10 +274,20 @@ int main(int argc, char *argv[]) {
     double tmpX = ueXmin;
     double tmpY = ueYmin;
 
+    if (ueNodes.GetN() > 20) {
+    	printf("INPUT ERROR");
+    	exit(0);
+    }
+
+
     Ptr<ListPositionAllocator> positionAlloc1 = CreateObject<ListPositionAllocator> ();
     for (uint16_t i = 1; i <= ueNodes.GetN(); i++) {
-        tmpX += 2;
-        tmpY += 2;
+    	// Generate a random number for X and Y
+		double tmpRatio = (double)rand()/RAND_MAX;
+		tmpX = tmpRatio * (ueXmax - ueXmin) + ueXmin;
+		tmpRatio = (double)rand()/RAND_MAX;
+		tmpY = tmpRatio * (ueYmax - ueYmin) + ueYmin;
+
         positionAlloc1->Add (Vector(tmpX, tmpY, 0));    // x, and y should be randomly generated
     }
     
@@ -543,12 +558,9 @@ int main(int argc, char *argv[]) {
     // The network node and interface index are provided in the assignment sheet
 
     // EDIT START ( add about several lines)
-
-
-
-
-
-
+	//internet.EnablePcapIpv4("server_interface_towards_router", internetIpIfaces1.Get(1).first,1, false);
+	//internet.EnablePcapIpv4("router_interface_towards_server", internetIpIfaces1.Get(0).first, 1, false);
+	//internet.EnablePcapIpv4("router_interface_towards_ap", internetIpIfaces3.Get(1).first, 3, false);
 
 
     // EDIT END
