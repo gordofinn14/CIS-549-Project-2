@@ -159,10 +159,6 @@ int main(int argc, char *argv[]) {
     cmd.AddValue ("delayValueforWifi", "Link delay in msec between the router and Wifi AP", delayValueforWifi);
 
 
-
-
-
-
     // EDIT END
 
     cmd.Parse (argc, argv);
@@ -558,6 +554,7 @@ int main(int argc, char *argv[]) {
     // The network node and interface index are provided in the assignment sheet
 
     // EDIT START ( add about several lines)
+	
 	//internet.EnablePcapIpv4("server_interface_towards_router", internetIpIfaces1.Get(1).first,1, false);
 	//internet.EnablePcapIpv4("router_interface_towards_server", internetIpIfaces1.Get(0).first, 1, false);
 	//internet.EnablePcapIpv4("router_interface_towards_ap", internetIpIfaces3.Get(1).first, 3, false);

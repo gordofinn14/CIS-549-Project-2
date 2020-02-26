@@ -76,13 +76,13 @@
 # Commands for the 4 scenarios
 ##################################################
 
-./waf --run "scratch/prj_lw  --OutputFileName=output/prj_wf_50Mb_udp_1ue_m1_rtt30 --Scenario=1 --NumberUE=1 --Transport=2  --DataRateforUDP=50Mb/s  --wifiMcs=HtMcs1  --delayValueforRHtoR=5  --delayValueforWifi=10  --simTime=1"
+./waf --run "scratch/prj_lw  --OutputFileName=output/prj_wf_50Mb_udp_1ue_m1_rtt30 --Scenario=1 --NumberUE=1 --Transport=2  --DataRateforUDP=50Mb/s  --wifiMcs=HtMcs1  --delayValueforRHtoR=5  --delayValueforWifi=10  --simTime=2"
 
-./waf --run "scratch/prj_lw  --OutputFileName=output/prj_wf_150Mb_udp_1ue_m7_rtt30 --Scenario=1 --NumberUE=1 --Transport=2  --DataRateforUDP=150Mb/s  --wifiMcs=HtMcs7  --delayValueforRHtoR=5  --delayValueforWifi=10  --simTime=1"
+./waf --run "scratch/prj_lw  --OutputFileName=output/prj_wf_150Mb_udp_1ue_m7_rtt30 --Scenario=1 --NumberUE=1 --Transport=2  --DataRateforUDP=150Mb/s  --wifiMcs=HtMcs7  --delayValueforRHtoR=5  --delayValueforWifi=10  --simTime=2"
 
-./waf --run "scratch/prj_lw  --OutputFileName=output/prj_wf_50Mb_udp_1ue_m1_rtt200 --Scenario=1 --NumberUE=1 --Transport=2  --DataRateforUDP=50Mb/s  --wifiMcs=HtMcs1  --delayValueforRHtoR=10  --delayValueforWifi=90  --simTime=1"
+./waf --run "scratch/prj_lw  --OutputFileName=output/prj_wf_50Mb_udp_1ue_m1_rtt200 --Scenario=1 --NumberUE=1 --Transport=2  --DataRateforUDP=50Mb/s  --wifiMcs=HtMcs1  --delayValueforRHtoR=10  --delayValueforWifi=90  --simTime=2"
 
-./waf --run "scratch/prj_lw  --OutputFileName=output/prj_wf_150Mb_udp_1ue_m7_rtt200 --Scenario=1 --NumberUE=1 --Transport=2  --DataRateforUDP=150Mb/s  --wifiMcs=HtMcs7  --delayValueforRHtoR=10  --delayValueforWifi=90  --simTime=1"
+./waf --run "scratch/prj_lw  --OutputFileName=output/prj_wf_150Mb_udp_1ue_m7_rtt200 --Scenario=1 --NumberUE=1 --Transport=2  --DataRateforUDP=150Mb/s  --wifiMcs=HtMcs7  --delayValueforRHtoR=10  --delayValueforWifi=90  --simTime=2"
 
 
 ############
