@@ -1,0 +1,72 @@
+
+# 1UE Part
+./data-analysis prj_wf_10m_tcp_1ue_m1_rw64k_rtt30-throughput-ue1.dat
+
+./data-analysis prj_wf_10m_tcp_1ue_m1_rw64k_rtt200-throughput-ue1.dat
+
+./data-analysis prj_wf_10m_tcp_1ue_m1_rw1m_rtt30-throughput-ue1.dat
+
+./data-analysis prj_wf_10m_tcp_1ue_m1_rw1m_rtt200-throughput-ue1.dat
+
+./data-analysis prj_wf_10m_tcp_1ue_m7_rw64k_rtt30-throughput-ue1.dat
+
+./data-analysis prj_wf_10m_tcp_1ue_m7_rw64k_rtt200-throughput-ue1.dat
+
+./data-analysis prj_wf_10m_tcp_1ue_m7_rw1m_rtt200-throughput-ue1.dat
+
+./data-analysis prj_wf_10m_tcp_1ue_m7_rw1m_rtt30-throughput-ue1.dat
+
+
+
+
+# 3UE Part
+./data-analysis prj_wf_10m_tcp_3ue_m1_rw64k_rtt30-throughput-ue1.dat
+./data-analysis prj_wf_10m_tcp_3ue_m1_rw64k_rtt30-throughput-ue2.dat
+./data-analysis prj_wf_10m_tcp_3ue_m1_rw64k_rtt30-throughput-ue3.dat
+./data-analysis prj_wf_10m_tcp_3ue_m1_rw64k_rtt30-throughput-ue-all.dat
+
+
+./data-analysis prj_wf_10m_tcp_3ue_m1_rw64k_rtt200-throughput-ue1.dat
+./data-analysis prj_wf_10m_tcp_3ue_m1_rw64k_rtt200-throughput-ue2.dat
+./data-analysis prj_wf_10m_tcp_3ue_m1_rw64k_rtt200-throughput-ue3.dat
+./data-analysis prj_wf_10m_tcp_3ue_m1_rw64k_rtt200-throughput-ue-all.dat
+
+./data-analysis prj_wf_10m_tcp_3ue_m1_rw1m_rtt30-throughput-ue1.dat
+./data-analysis prj_wf_10m_tcp_3ue_m1_rw1m_rtt30-throughput-ue2.dat
+./data-analysis prj_wf_10m_tcp_3ue_m1_rw1m_rtt30-throughput-ue3.dat
+./data-analysis prj_wf_10m_tcp_3ue_m1_rw1m_rtt30-throughput-ue-all.dat
+
+./data-analysis prj_wf_10m_tcp_3ue_m1_rw1m_rtt200-throughput-ue1.dat
+./data-analysis prj_wf_10m_tcp_3ue_m1_rw1m_rtt200-throughput-ue2.dat
+./data-analysis prj_wf_10m_tcp_3ue_m1_rw1m_rtt200-throughput-ue3.dat
+./data-analysis prj_wf_10m_tcp_3ue_m1_rw1m_rtt200-throughput-ue-all.dat
+
+./data-analysis prj_wf_10m_tcp_3ue_m7_rw64k_rtt30-throughput-ue1.dat
+./data-analysis prj_wf_10m_tcp_3ue_m7_rw64k_rtt30-throughput-ue2.dat
+./data-analysis prj_wf_10m_tcp_3ue_m7_rw64k_rtt30-throughput-ue3.dat
+./data-analysis prj_wf_10m_tcp_3ue_m7_rw64k_rtt30-throughput-ue-all.dat
+
+./data-analysis prj_wf_10m_tcp_3ue_m7_rw64k_rtt200-throughput-ue1.dat
+./data-analysis prj_wf_10m_tcp_3ue_m7_rw64k_rtt200-throughput-ue2.dat
+./data-analysis prj_wf_10m_tcp_3ue_m7_rw64k_rtt200-throughput-ue3.dat
+./data-analysis prj_wf_10m_tcp_3ue_m7_rw64k_rtt200-throughput-ue-all.dat
+
+./data-analysis prj_wf_10m_tcp_3ue_m7_rw1m_rtt30-throughput-ue1.dat
+./data-analysis prj_wf_10m_tcp_3ue_m7_rw1m_rtt30-throughput-ue2.dat
+./data-analysis prj_wf_10m_tcp_3ue_m7_rw1m_rtt30-throughput-ue3.dat
+./data-analysis prj_wf_10m_tcp_3ue_m7_rw1m_rtt30-throughput-ue-all.dat
+
+./data-analysis prj_wf_10m_tcp_3ue_m7_rw1m_rtt200-throughput-ue1.dat
+./data-analysis prj_wf_10m_tcp_3ue_m7_rw1m_rtt200-throughput-ue2.dat
+./data-analysis prj_wf_10m_tcp_3ue_m7_rw1m_rtt200-throughput-ue3.dat
+./data-analysis prj_wf_10m_tcp_3ue_m7_rw1m_rtt200-throughput-ue-all.dat
+
+#4 part
+./data-analysis prj_wf_50Mb_udp_1ue_m1_rtt30-throughput-ue1.dat
+./data-analysis prj_wf_50Mb_udp_1ue_m1_rtt200-throughput-ue1.dat
+./data-analysis prj_wf_150Mb_udp_1ue_m7_rtt30-throughput-ue1.dat
+./data-analysis prj_wf_150Mb_udp_1ue_m7_rtt200-throughput-ue1.dat
+
+
+
+
