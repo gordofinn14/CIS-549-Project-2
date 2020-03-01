@@ -1,0 +1,42 @@
+set xlabel "Time(sec)"
+set ylabel "Throughput (Mbps)"
+set yrange [0:200]
+
+plot 'prj_wf_10m_tcp_1ue_m7_rw1m_rtt30-throughput-ue1.dat' title 'UE1-WiFi-RTT(30ms)-MCS(7)-RW(1024): TCP Thp(Mbps)','prj_wf_10m_tcp_1ue_m1_rw1m_rtt30-throughput-ue1.dat' title 'UE1-WiFi-RTT(30ms)-MCS(1)-RW(1024): TCP Thp(Mbps)','prj_wf_10m_tcp_1ue_m7_rw64k_rtt30-throughput-ue1.dat' title 'UE1-WiFi-RTT(30ms)-MCS(7)-RW(64): TCP Thp(Mbps)','prj_wf_10m_tcp_1ue_m1_rw64k_rtt30-throughput-ue1.dat' title 'UE1 WiFi-RTT(30ms)-MCS(1)-RW(64): TCP Thp(Mbps)','prj_wf_10m_tcp_1ue_m7_rw1m_rtt200-throughput-ue1.dat' title 'UE1-WiFi-RTT(200ms)-MCS(7)-RW(1024): TCP Thp(Mbps)','prj_wf_10m_tcp_1ue_m1_rw1m_rtt200-throughput-ue1.dat' title 'UE1-WiFi-RTT(200ms)-MCS(1)-RW(1024): TCP Thp(Mbps)','prj_wf_10m_tcp_1ue_m7_rw64k_rtt200-throughput-ue1.dat' title 'UE1-WiFi-RTT(200ms)-MCS(7)-RW(64): TCP Thp(Mbps)','prj_wf_10m_tcp_1ue_m1_rw64k_rtt200-throughput-ue1.dat' title 'UE1 WiFi-RTT(200ms)-MCS(1)-RW(64): TCP Thp(Mbps)'
+
+set xlabel "Time(sec)"
+set ylabel "Throughput (Mbps)"
+set yrange [0:200]
+
+plot 'prj_wf_10m_tcp_3ue_m7_rw1m_rtt30-throughput-ue-all.dat' title 'UE3-WiFi-RTT(30ms)-MCS(7)-RW(1024): TCP Thp(Mbps)','prj_wf_10m_tcp_3ue_m1_rw1m_rtt30-throughput-ue-all.dat' title 'UE3-WiFi-RTT(30ms)-MCS(1)-RW(1024): TCP Thp(Mbps)','prj_wf_10m_tcp_3ue_m7_rw64k_rtt30-throughput-ue-all.dat' title 'UE3-WiFi-RTT(30ms)-MCS(7)-RW(64): TCP Thp(Mbps)','prj_wf_10m_tcp_3ue_m1_rw64k_rtt30-throughput-ue-all.dat' title 'UE3 WiFi-RTT(30ms)-MCS(1)-RW(64): TCP Thp(Mbps)','prj_wf_10m_tcp_3ue_m7_rw1m_rtt200-throughput-ue-all.dat' title 'UE3-WiFi-RTT(200ms)-MCS(7)-RW(1024): TCP Thp(Mbps)','prj_wf_10m_tcp_3ue_m1_rw1m_rtt200-throughput-ue-all.dat' title 'UE3-WiFi-RTT(200ms)-MCS(1)-RW(1024): TCP Thp(Mbps)','prj_wf_10m_tcp_3ue_m7_rw64k_rtt200-throughput-ue-all.dat' title 'UE3-WiFi-RTT(200ms)-MCS(7)-RW(64): TCP Thp(Mbps)','prj_wf_10m_tcp_3ue_m1_rw64k_rtt200-throughput-ue-all.dat' title 'UE3 WiFi-RTT(200ms)-MCS(1)-RW(64): TCP Thp(Mbps)'
+
+set xlabel "Time(sec)"
+set ylabel "Throughput (Mbps)"
+set yrange [0:200]
+
+plot 'prj_wf_10m_tcp_3ue_m7_rw1m_rtt30-throughput-ue1.dat' title 'UE1-WiFi-RTT(30ms)-MCS(7)-RW(1024): TCP Thp(Mbps)','prj_wf_10m_tcp_3ue_m1_rw1m_rtt30-throughput-ue1.dat' title 'UE1-WiFi-RTT(30ms)-MCS(1)-RW(1024): TCP Thp(Mbps)','prj_wf_10m_tcp_3ue_m7_rw64k_rtt30-throughput-ue1.dat' title 'UE1-WiFi-RTT(30ms)-MCS(7)-RW(64): TCP Thp(Mbps)','prj_wf_10m_tcp_3ue_m1_rw64k_rtt30-throughput-ue1.dat' title 'UE1 WiFi-RTT(30ms)-MCS(1)-RW(64): TCP Thp(Mbps)','prj_wf_10m_tcp_3ue_m7_rw1m_rtt200-throughput-ue1.dat' title 'UE1-WiFi-RTT(200ms)-MCS(7)-RW(1024): TCP Thp(Mbps)','prj_wf_10m_tcp_3ue_m1_rw1m_rtt200-throughput-ue1.dat' title 'UE1-WiFi-RTT(200ms)-MCS(1)-RW(1024): TCP Thp(Mbps)','prj_wf_10m_tcp_3ue_m7_rw64k_rtt200-throughput-ue1.dat' title 'UE1-WiFi-RTT(200ms)-MCS(7)-RW(64): TCP Thp(Mbps)','prj_wf_10m_tcp_3ue_m1_rw64k_rtt200-throughput-ue1.dat' title 'UE1 WiFi-RTT(200ms)-MCS(1)-RW(64): TCP Thp(Mbps)'
+
+set xlabel "Time(sec)"
+set ylabel "Throughput (Mbps)"
+set yrange [0:200]
+
+plot 'prj_wf_10m_tcp_3ue_m7_rw1m_rtt30-throughput-ue2.dat' title 'UE2-WiFi-RTT(30ms)-MCS(7)-RW(1024): TCP Thp(Mbps)','prj_wf_10m_tcp_3ue_m1_rw1m_rtt30-throughput-ue2.dat' title 'UE2-WiFi-RTT(30ms)-MCS(1)-RW(1024): TCP Thp(Mbps)','prj_wf_10m_tcp_3ue_m7_rw64k_rtt30-throughput-ue2.dat' title 'UE2-WiFi-RTT(30ms)-MCS(7)-RW(64): TCP Thp(Mbps)','prj_wf_10m_tcp_3ue_m1_rw64k_rtt30-throughput-ue2.dat' title 'UE2 WiFi-RTT(30ms)-MCS(1)-RW(64): TCP Thp(Mbps)','prj_wf_10m_tcp_3ue_m7_rw1m_rtt200-throughput-ue2.dat' title 'UE2-WiFi-RTT(200ms)-MCS(7)-RW(1024): TCP Thp(Mbps)','prj_wf_10m_tcp_3ue_m1_rw1m_rtt200-throughput-ue2.dat' title 'UE2-WiFi-RTT(200ms)-MCS(1)-RW(1024): TCP Thp(Mbps)','prj_wf_10m_tcp_3ue_m7_rw64k_rtt200-throughput-ue2.dat' title 'UE2-WiFi-RTT(200ms)-MCS(7)-RW(64): TCP Thp(Mbps)','prj_wf_10m_tcp_3ue_m1_rw64k_rtt200-throughput-ue2.dat' title 'UE2 WiFi-RTT(200ms)-MCS(1)-RW(64): TCP Thp(Mbps)'
+
+set xlabel "Time(sec)"
+set ylabel "Throughput (Mbps)"
+set yrange [0:200]
+
+plot 'prj_wf_10m_tcp_3ue_m7_rw1m_rtt30-throughput-ue3.dat' title 'UE3-WiFi-RTT(30ms)-MCS(7)-RW(1024): TCP Thp(Mbps)','prj_wf_10m_tcp_3ue_m1_rw1m_rtt30-throughput-ue3.dat' title 'UE3-WiFi-RTT(30ms)-MCS(1)-RW(1024): TCP Thp(Mbps)','prj_wf_10m_tcp_3ue_m7_rw64k_rtt30-throughput-ue3.dat' title 'UE3-WiFi-RTT(30ms)-MCS(7)-RW(64): TCP Thp(Mbps)','prj_wf_10m_tcp_3ue_m1_rw64k_rtt30-throughput-ue3.dat' title 'UE3 WiFi-RTT(30ms)-MCS(1)-RW(64): TCP Thp(Mbps)','prj_wf_10m_tcp_3ue_m7_rw1m_rtt200-throughput-ue3.dat' title 'UE3-WiFi-RTT(200ms)-MCS(7)-RW(1024): TCP Thp(Mbps)','prj_wf_10m_tcp_3ue_m1_rw1m_rtt200-throughput-ue3.dat' title 'UE3-WiFi-RTT(200ms)-MCS(1)-RW(1024): TCP Thp(Mbps)','prj_wf_10m_tcp_3ue_m7_rw64k_rtt200-throughput-ue3.dat' title 'UE3-WiFi-RTT(200ms)-MCS(7)-RW(64): TCP Thp(Mbps)','prj_wf_10m_tcp_3ue_m1_rw64k_rtt200-throughput-ue3.dat' title 'UE3 WiFi-RTT(200ms)-MCS(1)-RW(64): TCP Thp(Mbps)'
+
+set xlabel "Time(sec)"
+set ylabel "Throughput (Mbps)"
+set yrange [0:200]
+
+plot 'prj_wf_10m_tcp_3ue_m7_rw1m_rtt30-throughput-ue1.dat' title 'UE1-WiFi-RTT(30ms)-MCS(7)-RW(1024): TCP Thp(Mbps)',
+     'prj_wf_10m_tcp_3ue_m1_rw1m_rtt30-throughput-ue1.dat' title 'UE1-WiFi-RTT(30ms)-MCS(1)-RW(1024): TCP Thp(Mbps)',
+     'prj_wf_10m_tcp_3ue_m7_rw64k_rtt30-throughput-ue1.dat' title 'UE1-WiFi-RTT(30ms)-MCS(7)-RW(64): TCP Thp(Mbps)',
+     'prj_wf_10m_tcp_3ue_m1_rw64k_rtt30-throughput-ue1.dat' title 'UE1 WiFi-RTT(30ms)-MCS(1)-RW(64): TCP Thp(Mbps)',
+     'prj_wf_10m_tcp_3ue_m7_rw1m_rtt200-throughput-ue1.dat' title 'UE1-WiFi-RTT(200ms)-MCS(7)-RW(1024): TCP Thp(Mbps)',
+     'prj_wf_10m_tcp_3ue_m1_rw1m_rtt200-throughput-ue1.dat' title 'UE1-WiFi-RTT(200ms)-MCS(1)-RW(1024): TCP Thp(Mbps)',
+     'prj_wf_10m_tcp_3ue_m7_rw64k_rtt200-throughput-ue1.dat' title 'UE1-WiFi-RTT(200ms)-MCS(7)-RW(64): TCP Thp(Mbps)',
+     'prj_wf_10m_tcp_3ue_m1_rw64k_rtt200-throughput-ue1.dat' title 'UE1 WiFi-RTT(200ms)-MCS(1)-RW(64): TCP Thp(Mbps)'
