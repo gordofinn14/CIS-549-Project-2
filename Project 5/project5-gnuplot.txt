@@ -6,18 +6,18 @@ plot 'prj-throughput-ue1.dat' title 'UE1: TCP Thp(Mbps)','prj-throughput-ue2.dat
 
 set xlabel "Time(sec)"
 set ylabel "Delay (ms)"
-set yrange [0:300]
+set yrange [0:200]
 
 plot 'prj_delay.dat' title 'UE1: TCP Delay(ms)'
 
 set xlabel "Time(sec)"
 set ylabel "Packet # (ms)"
-set yrange [0:600]
+set yrange [0:4000]
 
 plot 'prj_preseq.dat' title 'UE1: TCP Pre Sequence #'
 
 set xlabel "Time(sec)"
 set ylabel "Packet # (ms)"
-set yrange [0:600]
+set yrange [0:4000]
 
 plot 'prj_postseq.dat' title 'UE1: TCP Post Sequence #'
