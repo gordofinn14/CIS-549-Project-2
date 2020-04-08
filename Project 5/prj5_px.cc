@@ -70,12 +70,18 @@ double randomMin = 0;
 double randomMax = 1.0;
 Ptr<UniformRandomVariable> randomUniform = CreateObject<UniformRandomVariable> ();
 
-double lteSent = 0.0;
+double lteBytesSent = 0.0;
+double ltePacketsSent = 0.0;
 int totalPacketSent = 0;
-double wifiSent = 0.0;
+double wifiBytesSent = 0.0;
+double wifiPacketsSent = 0.0;
+
 
 std::string aggPath = "wifiOnly";    // Three options are available: wifiOnly, lteOnly, and lteAndWifi
 
+double packetDelayLTE = 0.0;
+double packetDelayWifi = 0.0;
+double wifiDelayOverLTEDelayRatio = 1.0;
 
 int inOrderTimeout=100;
 
@@ -599,6 +605,10 @@ bool rtVirtualSend (Ptr<Packet> packet, const Address& source, const Address& de
     // We can decide the router for every packet                                //
     {
         MyTag mytag;
+        double averageLTEPacketDelay= 0.0;
+        double averageWifiPacketDelay= 0.0;
+        double averageLTEPacketSize = 0.0;
+        double averageWifiPacketSize = 0.0;
         mytag.SetSimpleValue (counter);                                 // add packet sequence number at the router
         packet->AddByteTag(mytag);                                      // attach the sequence number
         counter++;
@@ -651,20 +661,57 @@ bool rtVirtualSend (Ptr<Packet> packet, const Address& source, const Address& de
                 // TEST #3 ::::: split
                 // Use both LTE and Wi-Fi networks are simultaniously used by a single traffic flow.
                 // This sample steering send one packet to LTE path and another packet to WiFi path and repeates
-		if ( (totalPacketSent-1) != 100)
-		{
 
-                if ( totalPacketSent % 2 == 0 ) // toggle the transmission path between LTE and WiFi
+                if ( totalPacketSent % 100 == 0 && totalPacketSent != 0) // will halt every 100 packets to reassess link 
                 {
+                    // calculate the new averages for the past 100 packets and reset global variables
+                    averageLTEPacketDelay = packetDelayLTE / ltePacketsSent;
+                    averageWifiPacketDelay = packetDelayWifi / wifiPacketsSent;
+                    averageWifiPacketSize = wifiBytesSent / wifiPacketsSent;
+                    averageLTEPacketSize = lteBytesSent / ltePacketsSent;
+                    packetDelayWifi = 0.0;
+                    packetDelayLTE = 0.0;
+                    wifiPacketsSent = 0.0;
+                    ltePacketsSent = 0.0;
+
+                    // calculate a new ratio of the throughput for wifi vs. lte
+                    wifiDelayOverLTEDelayRatio = (averageWifiPacketSize / averageWifiPacketDelay) / (averageLTEPacketSize / averageLTEPacketDelay);
+                }
+                
+                if  (ltePacketsSent == 0.0) {
                     // Use LTE path for DL traffic
                     m_rtSocket->SendTo (packet, 0, InetSocketAddress (m_msIfc0Address, TunnelPort));
+
+                    // Increase counters
+                    ltePacketsSent++;
+                    lteBytesSent = lteBytesSent + Packet::GetSize(packet);
                 }
-                else
-                {
+                else if (wifiPacketsSent == 0.0) {
                     // use Wi-Fi path DL traffic
                     m_rtSocket->SendTo (packet, 0, InetSocketAddress (m_msIfc1Address, TunnelPort));
+
+                    // Increase counters
+                    wifiPacketsSent++;
+                    wifiBytesSent = wifiBytesSent + Packet::GetSize(packet);                
                 }
-		}
+                else {
+                    if (wifiPacketsSent / ltePacketsSent <= wifiDelayOverLTEDelayRatio) {
+                        // use Wi-Fi path DL traffic
+                        m_rtSocket->SendTo (packet, 0, InetSocketAddress (m_msIfc1Address, TunnelPort));
+
+                        // Increase counters
+                        wifiPacketsSent++;
+                        wifiBytesSent = wifiBytesSent + Packet::GetSize(packet);
+                    }
+                    else {
+                        // Use LTE path for DL traffic
+                        m_rtSocket->SendTo (packet, 0, InetSocketAddress (m_msIfc0Address, TunnelPort));
+
+                        // Increase counters
+                        ltePacketsSent++;
+                        lteBytesSent = lteBytesSent + Packet::GetSize(packet);
+                    }
+                }
                 // EDIT END
             }
             else
@@ -717,6 +764,7 @@ bool rtVirtualSend (Ptr<Packet> packet, const Address& source, const Address& de
 
         Ptr<Packet> packet_once = socket->Recv (20, 0); //IP Header Length: 20
         Ipv4Header ipv4Header;
+        double packetDelay = 0.0;
         packet_once->RemoveHeader(ipv4Header);
         Ipv4Address tempDestination = ipv4Header.GetDestination();
         Ptr<Packet> packet = socket->Recv (std::numeric_limits<uint32_t>::max (), 0);
@@ -728,6 +776,10 @@ bool rtVirtualSend (Ptr<Packet> packet, const Address& source, const Address& de
             packet->FindFirstMatchingByteTag (tagCopy);     // tagCopy contains the packet sent time
             MyTag tagCopy2;
             packet->FindFirstMatchingByteTag (tagCopy2);    // tagCopy2 contains the packet sequence number
+
+            // get the packet delay from the router to the UE and update total
+            packetDelay = Simulator::Now().GetMilliSeconds() - (uint32_t)tagCopy.GetSimpleValue();
+            packetDelayLTE = packetDelayLTE + packetDelay;
 
             ///////////////////////////////////////////
             // Example code for you to monitor the incoming packet information
@@ -764,9 +816,14 @@ bool rtVirtualSend (Ptr<Packet> packet, const Address& source, const Address& de
         if (tempDestination == m_msIfc1Address) {
             // IP Packet Level Measurement
             TimeTag tagCopy;
+            double packetDelay = 0.0;
             packet->FindFirstMatchingByteTag (tagCopy);   // tagCopy contains the packet sent time
             MyTag tagCopy2;
             packet->FindFirstMatchingByteTag (tagCopy2);    // tagCopy2 contains the packet sequence number
+
+            // get the packet delay from the router to the UE and update total
+            packetDelay = Simulator::Now().GetMilliSeconds() - (uint32_t)tagCopy.GetSimpleValue();
+            packetDelayWifi =packetDelayWifi + packetDelay;
 
             ///////////////////////////////////////////
             // Example code for you to monitor the incoming packet information
