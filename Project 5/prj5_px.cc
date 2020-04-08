@@ -76,7 +76,9 @@ double wifiSent = 0.0;
 
 std::string aggPath = "wifiOnly";    // Three options are available: wifiOnly, lteOnly, and lteAndWifi
 
+
 int inOrderTimeout=100;
+
 
 //---------------------------------------Tag------------------------------------//
 // 1. The MyTag class is used to mark the packet go through an IP tunnel  //
@@ -327,50 +329,77 @@ class Tunnel
         //
         // about 40 lines would work
 
-        packet_number++;
-	cout << "Time beg: " << packet_number << '\n';
+        //packet_number++;
+	//cout << "TIMEOUT beg: " << packet_id << '\n';
 
         if (packetQueue.size() != 0) {
-            while (1) {
-                if (packetQueue.size() == 0) {break;}
+        	while (1) {
+                	if (packetQueue.size() == 0) {break;}
 
-                MarkedPacket packet_temp = packetQueue.front();
-		cout << "packet_temp.seq :" << packet_temp.seq_number << '\n';
-		if (packet_temp.seq_number==(uint32_t)packet_number)
-		{
-			if(packet_temp.tunnel_number==0)
+                	MarkedPacket packet_temp = packetQueue.front();
+			//cout << "TIMEOUT packet_temp.seq :" << packet_temp.seq_number << '\n';
+			if ((packet_temp.seq_number==packet_id) || ((uint32_t)Simulator::Now ().GetMilliSeconds ()-packet_temp.enter_time>=(uint32_t)timeout_period)) //(uint32_t)packet_number)
 			{
-        			m_msIfc0Tap->Receive (packet_temp.m_packet, 0x0800, m_msIfc0Tap->GetAddress (), m_msIfc0Tap->GetAddress (), NetDevice::PACKET_HOST);
-			}
-        		else{
-        			m_msIfc1Tap->Receive (packet_temp.m_packet, 0x0800, m_msIfc1Tap->GetAddress (), m_msIfc1Tap->GetAddress (), NetDevice::PACKET_HOST);
-        		}
-                
-		packet_number++;
-		cout << "Time loop: " << packet_number << '\n';
+				//if ((uint32_t)Simulator::Now ().GetMilliSeconds ()-new_Packet.enter_time>=(uint32_t)timeout_period)
+				//{
+				//cout << "packet_temp.seq :" << packet_temp.seq_number << '\n';
+				if(packet_temp.tunnel_number==0)
+				{
+        				m_msIfc0Tap->Receive (packet_temp.m_packet, 0x0800, m_msIfc0Tap->GetAddress (), m_msIfc0Tap->GetAddress (), NetDevice::PACKET_HOST);
+				}
+        			else
+				{
+        				m_msIfc1Tap->Receive (packet_temp.m_packet, 0x0800, m_msIfc1Tap->GetAddress (), m_msIfc1Tap->GetAddress (), NetDevice::PACKET_HOST);
+        			}
+			        outFile.open (prefix_file_name + "_postseq.dat",  std::ios_base::app);
+			        if (!outFile.is_open ())
+		 	        {
+        				NS_LOG_ERROR ("Can't open file " << prefix_file_name << "_postseq.dat");
+        			}
+    				else
+				{
+ 					outFile << (uint32_t)Simulator::Now ().GetMilliSeconds () << "\t";
+  					outFile << packet_temp.seq_number << std::endl;
+				}  	
+				outFile.close ();
+	        		outFile.open (prefix_file_name + "_delay.dat",  std::ios_base::app);
+	        		if (!outFile.is_open ())
+	        		{
+	        			NS_LOG_ERROR ("Can't open file " << prefix_file_name << "_delay.dat");
+        			}
+    				else
+				{
+ 					outFile << (uint32_t)Simulator::Now ().GetMilliSeconds () << "\t";
+  					outFile << (uint32_t)Simulator::Now ().GetMilliSeconds ()-packet_temp.enter_time << std::endl;
+				}
+  				outFile.close ();
 
-		//if (!packetQueue.empty())
-		//{
-			//packet_temp=packetQueue.front();
-			packetQueue.pop_front();
-		}
-		else
-		{
+				//}
+				packet_id=packet_temp.seq_number+1;
+                		if (packet_temp.seq_number==(uint32_t)packet_number) {packet_number++;}
+				if (!packetQueue.empty())
+				{
+					//packet_temp=packetQueue.front();
+					packetQueue.pop_front();
+				}		
+			}
+			//packet_number++;
+			//cout << "Time loop: " << packet_number << '\n';
+			//else
+			//{
 			if ((uint32_t)Simulator::Now ().GetMilliSeconds ()-packet_temp.enter_time<(uint32_t)timeout_period)
 			{
 				Simulator::Cancel(TimeoutEventId);
-        			TimeoutEventId = Simulator::Schedule(MilliSeconds(timeout_period-(uint32_t)Simulator::Now ().GetMilliSeconds ()-packet_temp.enter_time),&Tunnel::Timeout,this,packet_temp.seq_number);
+        			TimeoutEventId = Simulator::Schedule(MilliSeconds((uint32_t)timeout_period-(uint32_t)Simulator::Now ().GetMilliSeconds ()-packet_temp.enter_time),&Tunnel::Timeout,this,packet_temp.seq_number);
+				break;
 			}
-		
 		}
-
-
-
+	}
 
                 // EDIT END
 
-            } 
-        } 
+        //    } 
+        //} 
         
     }
 
@@ -396,17 +425,9 @@ class Tunnel
         new_Packet.enter_time = (uint32_t)Simulator::Now ().GetMilliSeconds ();
         new_Packet.seq_number = (uint32_t)tagCopy.GetSimpleValue();
 
-        outFile.open (prefix_file_name + "_delay.dat",  std::ios_base::app);
-        if (!outFile.is_open ())
-        {
-          	NS_LOG_ERROR ("Can't open file " << prefix_file_name << "_delay.dat");
-        }
-    	else
-	{
- 		outFile << (uint32_t)Simulator::Now ().GetMilliSeconds () << "\t";
-  		outFile << (uint32_t)Simulator::Now ().GetMilliSeconds ()-new_Packet.enter_time << std::endl;
-	}
-  	outFile.close ();
+
+	//std::cout << new_Packet.seq_number << std::endl;
+
         outFile.open (prefix_file_name + "_preseq.dat",  std::ios_base::app);
         if (!outFile.is_open ())
         {
@@ -418,19 +439,10 @@ class Tunnel
   		outFile << new_Packet.seq_number << std::endl;
 	}  	
 	outFile.close ();
-        outFile.open (prefix_file_name + "_postseq.dat",  std::ios_base::app);
-        if (!outFile.is_open ())
-        {
-          	NS_LOG_ERROR ("Can't open file " << prefix_file_name << "_postseq.dat");
-        }
-    	else
-	{
- 		outFile << (uint32_t)Simulator::Now ().GetMilliSeconds () << "\t";
-  		outFile << new_Packet.seq_number << std::endl;
-	}  	
-	outFile.close ();
 
  
+
+
         //////////////////////////////////////////
         // Cis 549 Project #5   Problem 2
         /////////////////////////////////////////
@@ -474,13 +486,12 @@ class Tunnel
         // about 70 lines would work.
 
 	//packet_number++;
-	//counter++;
-	//cout << "Recv beg: " << next_packet << "new " << new_Packet.seq_number << '\n';
-	// while new packet and packets in front of queue are in sequence, send to next layer and pop another packet off queue
-	//while (new_Packet.seq_number == (uint32_t)packet_number)
-	while (new_Packet.seq_number == next_packet)
+	//int t=0;
+	//if (!packetQueue.empty()) {t=(uint32_t)Simulator::Now ().GetMilliSeconds ()-packetQueue.front().enter_time;}
+	//cout << t << '\n';
+	while ((new_Packet.seq_number == (uint32_t)packet_number) || ((uint32_t)Simulator::Now ().GetMilliSeconds ()-new_Packet.enter_time>=(uint32_t)timeout_period)) // (new_Packet.seq_number < (uint32_t)packet_number && t>= timeout_period))
 	{
-		//cout << "new_Packet.seq :" << new_Packet.seq_number << '\n';
+		//cout << "new_Packet.seq: " << new_Packet.seq_number << " " << (uint32_t)Simulator::Now ().GetMilliSeconds ()-new_Packet.enter_time << " " << timeout_period << " " << timeout_period-((uint32_t)Simulator::Now ().GetMilliSeconds ()-new_Packet.enter_time) << " " << '\n';
 		if(new_Packet.tunnel_number==0)
 		{
         		m_msIfc0Tap->Receive (new_Packet.m_packet, 0x0800, m_msIfc0Tap->GetAddress (), m_msIfc0Tap->GetAddress (), NetDevice::PACKET_HOST);
@@ -489,22 +500,48 @@ class Tunnel
 		{
 			m_msIfc1Tap->Receive (new_Packet.m_packet, 0x0800, m_msIfc1Tap->GetAddress (), m_msIfc1Tap->GetAddress (), NetDevice::PACKET_HOST);
         	}
-		//packet_number++;
-		next_packet++;
+	        outFile.open (prefix_file_name + "_postseq.dat",  std::ios_base::app);
+	        if (!outFile.is_open ())
+ 	        {
+        		NS_LOG_ERROR ("Can't open file " << prefix_file_name << "_postseq.dat");
+        	}
+    		else
+		{
+ 			outFile << (uint32_t)Simulator::Now ().GetMilliSeconds () << "\t";
+  			outFile << new_Packet.seq_number << std::endl;
+		}  	
+		outFile.close ();
+	        outFile.open (prefix_file_name + "_delay.dat",  std::ios_base::app);
+	        if (!outFile.is_open ())
+	        {
+	         	NS_LOG_ERROR ("Can't open file " << prefix_file_name << "_delay.dat");
+        	}
+    		else
+		{
+ 			outFile << (uint32_t)Simulator::Now ().GetMilliSeconds () << "\t";
+  			outFile << (uint32_t)Simulator::Now ().GetMilliSeconds ()-new_Packet.enter_time << std::endl;
+		}
+  		outFile.close ();
+
+		packet_number=new_Packet.seq_number+1;
+		//next_packet++;
 		//cout << "next packet: " << next_packet << '\n';
 		if (!packetQueue.empty())
 		{
 			new_Packet=packetQueue.front();
 			packetQueue.pop_front();
+			//t=(uint32_t)Simulator::Now ().GetMilliSeconds ()-packetQueue.front().enter_time;
+			//cout << t << '\n';
 		}
 		else {return;}
-
 	}
 	// there is a sequence number gap
 	if ((uint32_t)Simulator::Now ().GetMilliSeconds ()-new_Packet.enter_time<(uint32_t)timeout_period)
 	{
 		Simulator::Cancel(TimeoutEventId);
-        	TimeoutEventId = Simulator::Schedule(MilliSeconds(timeout_period-(uint32_t)Simulator::Now ().GetMilliSeconds ()-new_Packet.enter_time),&Tunnel::Timeout,this,new_Packet.seq_number);
+        	TimeoutEventId = Simulator::Schedule(MilliSeconds(timeout_period-((uint32_t)Simulator::Now ().GetMilliSeconds ()-new_Packet.enter_time)),&Tunnel::Timeout,this,new_Packet.seq_number);
+		//cout << "created timeout for: " << new_Packet.seq_number << '\n';
+		//cout << timeout_period-((uint32_t)Simulator::Now ().GetMilliSeconds ()-new_Packet.enter_time) << '\n';
 	}
 	int inserted=0;	
 	for (std::list<MarkedPacket>::iterator it = packetQueue.begin(); it!=packetQueue.end(); ++it)
@@ -512,23 +549,25 @@ class Tunnel
 		if (new_Packet.seq_number<it->seq_number)
 		{
 			packetQueue.insert(it,new_Packet);
-			inserted=1;			
+			inserted=1;
 			break;
 		}
 	}
 	if (inserted==0) {packetQueue.push_back(new_Packet);}
-	if (!packetQueue.empty())
-	{
-		new_Packet=packetQueue.front();
+	//cout << "packet queue length: " << packetQueue.size() << '\n';			
+	//if (!packetQueue.empty())
+	//{
+	//	new_Packet=packetQueue.front();
 		//packetQueue.pop_front();
-	}
-	else {return;}
-	Simulator::Cancel(TimeoutEventId);
-	TimeoutEventId = Simulator::Schedule(MilliSeconds(timeout_period-(uint32_t)Simulator::Now ().GetMilliSeconds ()-new_Packet.enter_time),&Tunnel::Timeout,this,new_Packet.seq_number);
+	//}
+	//else {return;}
+	//Simulator::Cancel(TimeoutEventId);
+	//TimeoutEventId = Simulator::Schedule(MilliSeconds(timeout_period-(uint32_t)Simulator::Now ().GetMilliSeconds ()-new_Packet.enter_time),&Tunnel::Timeout,this,new_Packet.seq_number);
 	
 
 
 	return;
+ 
         // EDIT END
 
     }
@@ -612,6 +651,8 @@ bool rtVirtualSend (Ptr<Packet> packet, const Address& source, const Address& de
                 // TEST #3 ::::: split
                 // Use both LTE and Wi-Fi networks are simultaniously used by a single traffic flow.
                 // This sample steering send one packet to LTE path and another packet to WiFi path and repeates
+		if ( (totalPacketSent-1) != 100)
+		{
 
                 if ( totalPacketSent % 2 == 0 ) // toggle the transmission path between LTE and WiFi
                 {
@@ -623,7 +664,7 @@ bool rtVirtualSend (Ptr<Packet> packet, const Address& source, const Address& de
                     // use Wi-Fi path DL traffic
                     m_rtSocket->SendTo (packet, 0, InetSocketAddress (m_msIfc1Address, TunnelPort));
                 }
-
+		}
                 // EDIT END
             }
             else
@@ -750,7 +791,7 @@ bool rtVirtualSend (Ptr<Packet> packet, const Address& source, const Address& de
 public:
     Tunnel () {
         // We first initialize the parameters related to the reordering process here//
-        packet_number = -1;
+        packet_number = 0;
         counter = 0;
         m_rng = CreateObject<UniformRandomVariable> ();
         TunnelPort = UsedTunnelPort;
@@ -881,6 +922,12 @@ int main(int argc, char *argv[]) {
     double simTime = 10;
     std::string DataRateforUDP = "100Mb/s";
 
+
+    //std::remove(prefix_file_name + "_delay.dat");
+    //std::remove(prefix_file_name + "_preseq.dat");
+    //std::remove(prefix_file_name + "_postseq.dat");
+
+
     // This is the one way link delay between router and PGW
     // you may change this delay for RTT variation for LTE path
     int delayValueforWifi = 20; // ms
@@ -930,6 +977,23 @@ int main(int argc, char *argv[]) {
     cmd.AddValue ("inOrderTimeout", "Timeout value for packet ordering", inOrderTimeout);
 
     cmd.Parse (argc, argv);
+    
+    const char* filename1="_delay.dat";
+    const char* filename2="_preseq.dat";
+    const char* filename3="_postseq.dat";
+    string fn1 = (prefix_file_name+filename1);
+    string fn2 = (prefix_file_name+filename2);
+    string fn3 = (prefix_file_name+filename3);
+    const char * f1 = fn1.c_str();
+    const char * f2 = fn2.c_str();
+    const char * f3 = fn3.c_str();
+
+
+    std::remove(f1);
+    std::remove(f2);
+    std::remove(f3);
+
+
 
     if ((phyRate.compare("HtMcs1") == 0) || (phyRate.compare("HtMcs7") == 0))
         nStreams = 1;

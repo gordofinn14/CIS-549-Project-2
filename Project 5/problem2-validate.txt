@@ -1,0 +1,1 @@
+./waf --run "scratch/prj5_px --OutputFileName=output/prj --Scenario=3 --NumberUE=1 --Transport=1    --wifiMcs=HtMcs7 --tcpRcvBufBytes=1024000 --DataSizeforTCP=5000000 --DataRateforUDP=200Mb/s --delayValueforRHtoR=5 --delayValueforLte=50 --delayValueforWifi=10 --simTime=7 --aggPath=lteAndWifi --inOrderTimeout=100"
