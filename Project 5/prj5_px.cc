@@ -684,7 +684,7 @@ bool rtVirtualSend (Ptr<Packet> packet, const Address& source, const Address& de
 
                     // Increase counters
                     ltePacketsSent++;
-                    lteBytesSent = lteBytesSent + Packet::GetSize(packet);
+                    lteBytesSent = lteBytesSent + packet->Packet::GetSize();
                 }
                 else if (wifiPacketsSent == 0.0) {
                     // use Wi-Fi path DL traffic
@@ -692,7 +692,7 @@ bool rtVirtualSend (Ptr<Packet> packet, const Address& source, const Address& de
 
                     // Increase counters
                     wifiPacketsSent++;
-                    wifiBytesSent = wifiBytesSent + Packet::GetSize(packet);                
+                    wifiBytesSent = wifiBytesSent + packet->Packet::GetSize();                
                 }
                 else {
                     if (wifiPacketsSent / ltePacketsSent <= wifiDelayOverLTEDelayRatio) {
@@ -701,7 +701,7 @@ bool rtVirtualSend (Ptr<Packet> packet, const Address& source, const Address& de
 
                         // Increase counters
                         wifiPacketsSent++;
-                        wifiBytesSent = wifiBytesSent + Packet::GetSize(packet);
+                        wifiBytesSent = wifiBytesSent + packet->Packet::GetSize();
                     }
                     else {
                         // Use LTE path for DL traffic
@@ -709,7 +709,7 @@ bool rtVirtualSend (Ptr<Packet> packet, const Address& source, const Address& de
 
                         // Increase counters
                         ltePacketsSent++;
-                        lteBytesSent = lteBytesSent + Packet::GetSize(packet);
+                        lteBytesSent = lteBytesSent + packet->Packet::GetSize();
                     }
                 }
                 // EDIT END
