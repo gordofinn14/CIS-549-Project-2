@@ -1,0 +1,35 @@
+################################################
+# project 5: problem 4
+################################################
+#################
+# 15 UE , RTT=30
+#################
+# WiFi path only (both UL and DL)
+###############
+echo ./waf --run "scratch/prj5_px --OutputFileName=output/prj5_p5_wf_10m_tcp_15ue_m7_rw1m_rtt30 --Scenario=1 --NumberUE=15 --Transport=1 --wifiMcs=HtMcs7 --tcpRcvBufBytes=1024000 --DataSizeforTCP=10000000 --delayValueforRHtoR=5 --delayValueforLte=10 --delayValueforWifi=10  --simTime=30"  
+
+./waf --run "scratch/prj5_px --OutputFileName=output/prj5_p5_wf_10m_tcp_15ue_m7_rw1m_rtt30 --Scenario=1 --NumberUE=15 --Transport=1 --wifiMcs=HtMcs7 --tcpRcvBufBytes=1024000 --DataSizeforTCP=10000000 --delayValueforRHtoR=5 --delayValueforLte=10 --delayValueforWifi=10  --simTime=30" 
+
+###############
+# Aggregation but Wi-Fi DL path only : circular path
+###############
+echo ./waf --run "scratch/prj5_px --OutputFileName=output/prj5_p5_circle_10m_tcp_15ue_m7_rw1m_rtt30 --Scenario=3 --aggPath=wifiOnly --NumberUE=15 --Transport=1  --wifiMcs=HtMcs7 --tcpRcvBufBytes=1024000 --DataSizeforTCP=10000000 --delayValueforRHtoR=5 --delayValueforLte=10 --delayValueforWifi=10  --simTime=30"  
+
+./waf --run "scratch/prj5_px --OutputFileName=output/prj5_p5_circle_10m_tcp_15ue_m7_rw1m_rtt30 --Scenario=3 --aggPath=wifiOnly --NumberUE=15 --Transport=1  --wifiMcs=HtMcs7 --tcpRcvBufBytes=1024000 --DataSizeforTCP=10000000 --delayValueforRHtoR=5 --delayValueforLte=10 --delayValueforWifi=10  --simTime=30"  
+
+##################
+# 15 UE , RTT=200
+##################
+# WiFi path only (both UL and DL)
+###############
+echo ./waf --run "scratch/prj5_px --OutputFileName=output/prj5_p5_wf_10m_tcp_15ue_m7_rw1m_rtt200 --Scenario=1 --NumberUE=15 --Transport=1 --wifiMcs=HtMcs7 --tcpRcvBufBytes=1024000 --DataSizeforTCP=10000000 --delayValueforRHtoR=10 --delayValueforLte=90 --delayValueforWifi=90  --simTime=60" 
+
+./waf --run "scratch/prj5_px --OutputFileName=output/prj5_p5_wf_10m_tcp_15ue_m7_rw1m_rtt200 --Scenario=1 --NumberUE=15 --Transport=1 --wifiMcs=HtMcs7 --tcpRcvBufBytes=1024000 --DataSizeforTCP=10000000 --delayValueforRHtoR=10 --delayValueforLte=90 --delayValueforWifi=90  --simTime=60"  
+
+###############
+# Aggregation but Wi-Fi DL path only : circular path
+###############
+echo ./waf --run "scratch/prj5_px --OutputFileName=output/prj5_p5_circle_10m_tcp_15ue_m7_rw1m_rtt200 --Scenario=3 --aggPath=wifiOnly --NumberUE=15 --Transport=1  --wifiMcs=HtMcs7 --tcpRcvBufBytes=1024000 --DataSizeforTCP=10000000 --delayValueforRHtoR=10 --delayValueforLte=90 --delayValueforWifi=90  --simTime=60" 
+
+./waf --run "scratch/prj5_px --OutputFileName=output/prj5_p5_circle_10m_tcp_15ue_m7_rw1m_rtt200 --Scenario=3 --aggPath=wifiOnly --NumberUE=15 --Transport=1  --wifiMcs=HtMcs7 --tcpRcvBufBytes=1024000 --DataSizeforTCP=10000000 --delayValueforRHtoR=10 --delayValueforLte=90 --delayValueforWifi=90  --simTime=60" 
+
