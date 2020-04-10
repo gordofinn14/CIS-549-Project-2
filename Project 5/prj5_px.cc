@@ -707,6 +707,7 @@ bool rtVirtualSend (Ptr<Packet> packet, const Address& source, const Address& de
                         // Use LTE path for DL traffic
                         m_rtSocket->SendTo (packet, 0, InetSocketAddress (m_msIfc0Address, TunnelPort));
 
+
                         // Increase counters
                         ltePacketsSent++;
                         lteBytesSent = lteBytesSent + packet->Packet::GetSize();
@@ -1054,6 +1055,9 @@ int main(int argc, char *argv[]) {
 
     if ((phyRate.compare("HtMcs1") == 0) || (phyRate.compare("HtMcs7") == 0))
         nStreams = 1;
+
+    if (Transport == 2) 
+    	inOrderTimeout = 0;
 
     if (phyRate.compare("HtMcs15") == 0)
         nStreams = 2;
@@ -1441,6 +1445,7 @@ int main(int argc, char *argv[]) {
             sinkApp.Stop (Seconds (simTime));
         }
         else if (Transport == UDP_TEST) {
+        	// force timeout to 0 if UDP to correct flow
             uint16_t port = 9;
             OnOffHelper onoff ("ns3::UdpSocketFactory", Address (InetSocketAddress (DestAddr, port)));
             onoff.SetConstantRate (DataRate (DataRateforUDP));    // data transmission rate
