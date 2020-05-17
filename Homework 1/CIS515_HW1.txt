@@ -1,0 +1,179 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amssymb,amsmath}
+
+\setlength{\topmargin}{-.5in}
+\setlength{\oddsidemargin}{0 in}
+\setlength{\evensidemargin}{0 in}
+\setlength{\textwidth}{6.5truein}
+\setlength{\textheight}{8.5truein}
+
+
+\def\fseq#1#2{(#1_{#2})_{#2\geq 1}}
+\def\fsseq#1#2#3{(#1_{#3(#2)})_{#2\geq 1}}
+\def\qleq{\sqsubseteq}
+
+% \input ../mathmac.tex
+\input mathmac-v2.tex
+\input mac-new.tex
+%
+\begin{document}
+\begin{center}
+% \fbox{{\Large\bf Fall 2018 \hspace*{0.4cm} CIS 515}}\\
+% \vspace{1cm}
+{\Large\bf Module 1\\
+\vspace{0.5cm}
+Vector Spaces, Bases, Linear Maps}\\[10pt]
+
+\end{center}
+
+
+
+\section*{Problem 1: 10 points}
+\label{prob-2.8}
+Let $A_4$ be the following matrix:
+\[
+A_4 =
+\begin{pmatrix}
+1 & 2 & 1 & 1 \\
+2 & 3 & 2  & 3\\
+-1 &  0 &  1 & -1 \\
+-2 & -1 & 4 & 0
+\end{pmatrix}.
+\]
+Prove that the columns of $A_4$ are linearly independent.
+Find the coordinates of the vector $x = (7, 14, -1, 2)$ 
+over the basis consisting of the column vectors of $A_4$.
+\newline
+\newline a(1,2,-1,-2)+b(2,3,0,-1)+c(1,2,1,4)+d(1,3,-1,0)=(0,0,0,0)
+\newline a(1,2,-1,-2)=0, iff a=0
+\newline b(2,3,0,-1)=0, iff b=0
+\newline c(1,2,1,4)=0 iff c=0
+\newline d(1,3,-1,0)=0 iff d=0
+\newline a(1,2,-1,-2)+b(2,3,0,-1)+c(1,2,1,4)+d(1,3,-1,0)=(7,14,-1,2)
+\newline a=0
+\newline b=2
+\newline c=1
+\newline d=2
+\newline (a,b,c,d)=(0,2,1,2)
+
+\section*{Problem 2: 10 points}
+\label{prob-2.9}
+Consider the following Haar matrix
+\[
+H = 
+\begin{pmatrix}
+1 & 1 & 1 & 0 \\
+1 & 1 & -1 & 0 \\
+1 & -1 & 0 & 1 \\
+1 & -1 & 0 & -1
+\end{pmatrix} .
+\]
+Prove that the columns of $H$ are linearly independent.
+
+\medskip
+\hint
+Compute the product $\transpos{H} H$.
+\newline
+
+$\transpos{H} H$= 
+$\begin{pmatrix}
+1 & 1 & 1 & 0 \\
+1 & 1 & -1 & 0 \\
+1 & -1 & 0 & 1 \\
+1 & -1 & 0 & -1
+\end{pmatrix}
+\cdot
+\begin{pmatrix}
+1 & 1 & 1 & 0 \\
+1 & 1 & -1 & -1 \\
+1 & -1 & 0 & 0 \\
+0 & 0 & 1 & -1
+\end{pmatrix}
+=
+\begin{pmatrix}
+3 & 1 & 0 & 0 \\
+1 & 3 & 0 & 0 \\
+0 & 0 & 3 & 1 \\
+0 & 0 & 1 & 3
+\end{pmatrix}
+=M$
+\newline
+\newline M is a diagonal matrix, so it is invertible (there exists a matrix $M^{-1}$)
+\newline so $M^{-1}\cdot\transpos{H} H= M\cdot M^{-1}=I_4$, the identity matrix
+\newline so $M^{-1}\cdot\transpos{H} = H^{-1}$ (H is invertible)
+\newline so the columns of H are linearly independent
+
+
+
+
+\section*{Problem 3: 10 points}
+\label{prob-2.3}
+Let $E = \reals\times \reals$, and define the addition operation
+\[
+(x_1, y_1) + (x_2, y_2) = (x_1 + x_2, y_1 + y_2), \quad x_1, x_2,
+y_1, y_2\in \reals,
+\]
+and the multiplication operation $\mapdef{\cdot}{\reals\times E}{E}$
+by
+\[
+\lambda \cdot (x, y) = (\lambda x, y), \quad \lambda, x, y \in \reals.
+\]
+
+\noindent Show that  $E$ with the above operations $+$ and $\cdot$ is not a
+vector space. Which of the axioms is violated?
+\newline
+\newline associativity $u+(v+w)=(u+v)+w$ is violated because there is no $w$
+\newline axiom (V1) $\alpha (u+v)=(\alpha \cdot u) + (\alpha \cdot v)$ is violated because $\lambda \cdot (x, y) = (\lambda x, y) \neq (\lambda x,\lambda y)$
+
+
+\section*{Problem 4: 15 points total}
+\label{prob-2.14}
+\begin{itemize}
+\item[(1)] (5 points)
+ Let $A$ be an $n\times n$ matrix.
+If $A$ is invertible, prove that for any $x\in \reals^n$,
+if $Ax = 0$,  then $x = 0$.
+\newline
+\newline $A^{-1}Ax = 0\cdot A^{-1}$
+\newline so $x=0\cdot A^{-1}=0$
+
+
+
+\item[(2)](10 points)
+Let $A$ be an $m\times n$ matrix and let $B$ be an $n\times m$ matrix.
+Prove that $I_m - AB$ is invertible iff $I_n - BA$ is invertible.
+
+\medskip
+\hint
+If for all $x\in \reals^n$,
+$M x = 0 $ implies that $x = 0$, then $M$ is invertible.
+%Look at $A(I + BA)$ and $(I + AB)A$.
+\end{itemize}
+
+$B(I_m - AB)=(I_n-BA)B$
+\newline $B^{-1}(I_m - AB)^{-1}=(I_n-BA)^{-1}B^{-1}$
+\newline $B \cdot B^{-1}(I_m - AB)^{-1}=B \cdot (I_n-BA)^{-1}B^{-1}$
+\newline $(I_m - AB)^{-1}=B \cdot (I_n-BA)^{-1}B^{-1}$
+\newline so an inverse exists if B and $(I_m - AB)$ are invertible
+\newline if $(I_n - BA)$ is not invertible, then $BAx \neq 0$
+\newline so $ABAx=Ax\neq 0$
+\newline so $(I_m-AB)$ is not invertible
+
+
+
+
+\section*{Problem 5: 10 points}
+\label{prob-2.17}
+Let $f:E\rightarrow F$ be a linear map which is also a bijection (it is injective and surjective). Prove that the inverse function $f^{-1}:E\rightarrow F$ is linear.
+\newline 
+\newline $f^{-1}\lambda(x)=\lambda\cdot f^{-1}(x)$
+\newline $\lambda\cdot f^{-1}(x)=f^{-1}(f(\lambda\cdot f^{-1}(x)))$ because $f$ is bijective
+\newline $f^{-1}(f(\lambda \cdot f^{-1}(x)))=f^{-1}\lambda(x)$
+\newline since $\lambda$ is a scalar $f^{-1}$ is linear
+\newline also, $f^{-1}(x+y)=f^{-1}(x)+f^{-1}(y)$
+\newline $f^{-1}(x)+f^{-1}(y)=f^{-1}(f(f^{-1}(x)+f^{-1}(y)))$
+\newline $f^{-1}(f(f^{-1}(x)+f^{-1}(y)))=f^{-1}(x+y)$
+
+\section*{Total: 55 points}
+
+\end{document}
