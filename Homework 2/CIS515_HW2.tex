@@ -1,0 +1,387 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amssymb,amsmath}
+
+\setlength{\topmargin}{-.5in}
+\setlength{\oddsidemargin}{0 in}
+\setlength{\evensidemargin}{0 in}
+\setlength{\textwidth}{6.5truein}
+\setlength{\textheight}{8.5truein}
+
+
+\def\fseq#1#2{(#1_{#2})_{#2\geq 1}}
+\def\fsseq#1#2#3{(#1_{#3(#2)})_{#2\geq 1}}
+\def\qleq{\sqsubseteq}
+
+% \input ../mathmac.tex
+\input mathmac-v2.tex
+\input mac-new.tex
+%
+\begin{document}
+\begin{center}
+
+{\Large\bf Module 2\\
+\vspace{0.5cm}
+Matrices and Linear Maps}\\[10pt]
+Paul DeSanctis / Gordon Finn
+\end{center}
+
+\section*{Problem 1: 20 points total}
+\label{prob-3.2}
+\begin{itemize}
+\item[(1)](5 points)
+Prove that the column vectors of the matrix $A_2$ given by 
+\[
+A_2 = 
+\begin{pmatrix}
+1 & 1 & 1 & 1\\
+1 & 2 & 1 & 3 \\
+1 & 1 & 2 & 2 \\
+1 & 1 & 1 & 3
+\end{pmatrix}
+\]
+are linearly  independent.
+\[
+A_2^{-1} = 
+\begin{pmatrix}
+2 & -1 & -1 & 1\\
+0 & 1 & 0 & -1 \\
+-\frac{1}{2} & 0 & 1 & -\frac{1}{2} \\
+-\frac{1}{2} & 0 & 0 & \frac{1}{2}
+\end{pmatrix}
+\]
+$A_2^{-1}A_2=I$
+\newline $I_{11}=1(2)+1(0)+1(-\frac{1}{2})+1(-\frac{1}{2})=1$
+\newline $I_{12}=1(-1)+1(1)+1(0)+1(0)=0$
+\newline $I_{13}=1(-1)+1(0)+1(1)+1(0)=0$
+\newline $I_{14}=1(1)+1(-1)+1(-\frac{1}{2})+1(\frac{1}{2})=0$
+\newline $I_{21}=1(2)+2(0)+1(-\frac{1}{2})+3(-\frac{1}{2})=0$
+\newline $I_{22}=1(-1)+2(1)+1(0)+3(0)=1$
+\newline $I_{23}=1(-1)+2(0)+1(1)+3(0)=0$
+\newline $I_{24}=1(1)+2(-1)+1(-\frac{1}{2})+3(\frac{1}{2})=0$
+\newline $I_{31}=1(2)+1(0)+2(-\frac{1}{2})+2(-\frac{1}{2})=0$
+\newline $I_{32}=1(-1)+1(1)+2(0)+2(0)=0$
+\newline $I_{33}=1(-1)+1(0)+2(1)+2(0)=1$
+\newline $I_{34}=1(1)+1(-1)+2(-\frac{1}{2})+2(\frac{1}{2})=0$
+\newline $I_{41}=1(2)+1(0)+1(-\frac{1}{2})+3(-\frac{1}{2})=0$
+\newline $I_{42}=1(-1)+1(1)+1(0)+3(0)=0$
+\newline $I_{43}=1(-1)+1(0)+1(1)+3(0)=0$
+\newline $I_{44}=1(1)+1(-1)+1(-\frac{1}{2})+3(\frac{1}{2})=1$
+\[
+I = 
+\begin{pmatrix}
+1 & 0 & 0 & 0\\
+0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{pmatrix}
+\]
+
+
+
+\item[(2)](5 points)
+Prove that the column vectors of the matrix $B_2$ given by 
+\[
+B_2 = 
+\begin{pmatrix}
+1 & -2 & 2 & -2\\
+0 & -3 & 2 & -3 \\
+3 & -5 & 5 & -4 \\
+3 & -4 & 4 & -4
+\end{pmatrix}
+\]
+are linearly  independent.
+\[
+B_2^{-1} = 
+\begin{pmatrix}
+-2 & 0 & 0 & 1\\
+4\frac{1}{2} & -1 & -1 & -\frac{1}{2} \\
+4\frac{1}{2} & -1 & 0 & -1\frac{1}{2} \\
+-1\frac{1}{2} & 0 & 1 & -\frac{1}{2}
+\end{pmatrix}
+\]
+$B_2^{-1}B_2=I$
+\newline $I_{11}=1(-2)+-2(4\frac{1}{2})+2(4\frac{1}{2})+-2(-1\frac{1}{2})=1$
+\newline $I_{12}=1(0)+-2(-1)+2(-1)+-2(0)=0$
+\newline $I_{13}=1(0)+-2(-1)+2(0)+-2(1)=0$
+\newline $I_{14}=1(1)+-2(-\frac{1}{2})+2(-1\frac{1}{2})+-2(-\frac{1}{2})=0$
+\newline $I_{21}=0(-2)+-3(4\frac{1}{2})+2(4\frac{1}{2})+-3(-1\frac{1}{2})=0$
+\newline $I_{22}=0(0)+-3(-1)+2(-1)+-3(0)=1$
+\newline $I_{23}=0(0)+-3(-1)+2(0)+-3(1)=0$
+\newline $I_{24}=0(1)+-3(-\frac{1}{2})+2(-1\frac{1}{2})+-3(-\frac{1}{2})=0$
+\newline $I_{31}=3(-2)+-5(4\frac{1}{2})+5(4\frac{1}{2})+-4(-1\frac{1}{2})=0$
+\newline $I_{32}=3(0)+-5(-1)+5(-1)+-4(0)=0$
+\newline $I_{33}=3(0)+-5(-1)+5(0)+-4(1)=1$
+\newline $I_{34}=3(1)+-5(-\frac{1}{2})+5(-1\frac{1}{2})+-4(-\frac{1}{2})=0$
+\newline $I_{41}=3(-2)+-4(4\frac{1}{2})+4(4\frac{1}{2})+-4(-1\frac{1}{2})=0$
+\newline $I_{42}=3(0)+-4(-1)+4(-1)+-4(0)=0$
+\newline $I_{43}=3(0)+-4(-1)+4(0)+-4(1)=0$
+\newline $I_{44}=3(1)+-4(-\frac{1}{2})+4(-1\frac{1}{2})+-4(-\frac{1}{2})=1$
+\[
+I = 
+\begin{pmatrix}
+1 & 0 & 0 & 0\\
+0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{pmatrix}
+\]
+
+\item[(3)](10 points)
+Prove that the coordinates of the column vectors of the matrix $B_2$
+over the basis consisting of the column vectors of $A_2$ 
+are the columns of the matrix $P_2$ given by
+\[
+P_2 = 
+\begin{pmatrix}
+2 & 0 & 1 & -1\\
+-3 & 1 & -2 & 1 \\
+1 & -2 & 2 & -1 \\
+1 & -1 & 1 & -1
+\end{pmatrix} .
+\]
+
+$B2_{11}=2(1)+-3(1)+1(1)+1(1)=1$
+\newline $B2_{21}=2(1)+-3(2)+1(1)+1(3)=0$
+\newline $B2_{31}=2(1)+-3(1)+1(2)+1(2)=3$
+\newline $B2_{41}=2(1)+-3(1)+1(1)+1(3)=3$
+\newline $B2_{12}=0(1)+1(1)+-2(1)+-1(1)=-2$
+\newline $B2_{22}=0(1)+1(2)+-2(1)+-1(3)=-3$
+\newline $B2_{32}=0(1)+1(1)+-2(2)+-1(2)=-5$
+\newline $B2_{42}=0(1)+1(1)+-2(1)+-1(3)=-4$
+\newline $B2_{13}=1(1)+-2(1)+2(1)+1(1)=2$
+\newline $B2_{23}=1(1)+-2(2)+2(1)+1(3)=-2$
+\newline $B2_{33}=1(1)+-2(1)+2(2)+1(2)=5$
+\newline $B2_{43}=1(1)+-2(1)+2(1)+1(3)=4$
+\newline $B2_{14}=-1(1)+1(1)+-1(1)+-1(1)=-2$
+\newline $B2_{24}=-1(1)+1(2)+-1(1)+-1(3)=-3$
+\newline $B2_{34}=-1(1)+1(1)+-1(2)+-1(2)=-4$
+\newline $B2_{44}=-1(1)+1(1)+-1(1)+-1(3)=-4$
+
+
+
+Check that $A_2P_2 = B_2$.
+\newline Done.
+\newline Prove that
+\[
+P_2^{-1} = 
+\begin{pmatrix}
+-1 & -1 & -1 & 1\\
+2 & 1 & 1 & -2 \\
+2 & 1 & 2 & -3 \\
+-1 & -1 & 0 & -1
+\end{pmatrix} .
+\]
+$P_2^{-1}P_2=I$
+\newline $I_{11}=2(-1)+0(2)+1(2)+-1(-1)=1$
+\newline $I_{12}=2(-1)+0(1)+1(1)+-1(-1)=0$
+\newline $I_{13}=2(-1)+0(1)+1(2)+-1(0)=0$
+\newline $I_{14}=2(1)+0(-2)+1(-3)+-1(-1)=0$
+\newline $I_{21}=-3(-1)+1(2)+-2(2)+1(-1)=0$
+\newline $I_{22}=-3(-1)+1(1)+-2(1)+1(-1)=1$
+\newline $I_{23}=-3(-1)+1(1)+-2(2)+1(0)=0$
+\newline $I_{24}=-3(1)+1(-2)+-2(-3)+1(-1)=0$
+\newline $I_{31}=1(-1)+-2(2)+2(2)+-1(-1)=0$
+\newline $I_{32}=1(-1)+-2(1)+2(1)+-1(-1)=0$
+\newline $I_{33}=1(-1)+-2(1)+2(2)+-1(0)=1$
+\newline $I_{34}=1(1)+-2(-2)+2(-3)+-1(-1)=0$
+\newline $I_{41}=1(-1)+-1(2)+1(2)+-1(-1)=0$
+\newline $I_{42}=1(-1)+-1(1)+1(1)+-1(-1)=0$
+\newline $I_{43}=1(-1)+-1(1)+1(2)+-1(0)=0$
+\newline $I_{44}=1(1)+-1(-2)+1(-3)+-1(-1)=1$
+\[
+I = 
+\begin{pmatrix}
+1 & 0 & 0 & 0\\
+0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{pmatrix}
+\]
+
+What are the coordinates over the basis consisting of the
+column vectors of $B_2$ of the vector whose coordinates over the
+basis  consisting of the column vectors of $A_2$ are
+$(2, -3, 0, 0)$?
+\end{itemize}
+$old=(2,-3,0,0)$
+\newline $new=A_2^{-1}\cdot old$
+\newline $new_1=(2)(2)+(-1)(-3)+(-1)(0)+(-1)(0)=7$
+\newline $new_2=(0)(2)+(1)(-3)+(0)(0)+(-1)(0)=-3$
+\newline $new_2=(-\frac{1}{2})(2)+(0)(-3)+(1)(0)+(-\frac{1}{2})(0)=-1$
+\newline $new_4=(-\frac{1}{2})(2)+(0)(-3)+(0)(0)+(\frac{1}{2})(0)=-1$
+
+\[
+A_2^{-1} \cdot old  = 
+\begin{pmatrix}
+2 & -1 & -1 & 1\\
+0 & 1 & 0 & -1 \\
+-\frac{1}{2} & 0 & 1 & -\frac{1}{2} \\
+-\frac{1}{2} & 0 & 0 & \frac{1}{2}
+\end{pmatrix}\cdot 
+\begin{pmatrix}
+2\\
+-3\\
+0\\
+0
+\end{pmatrix} =
+\begin{pmatrix}
+7\\
+-3\\
+-1\\
+-1
+\end{pmatrix} = new
+\] 
+
+\section*{Problem 2: 30 points total}
+\label{prob-3.3}
+Consider the polynomials
+\begin{align*}
+B_0^2(t) & = (1 - t)^2  & B_1^2(t)  & = 2(1 - t)t & B_2^2(t) & = t^2 
+&   &    \\
+B_0^3(t) & = (1 - t)^3  & B_1^3(t) & = 3(1 - t)^2t & B_2^3(t) & = 3(1 - t)t^2 
+ &  B_3^3(t) & = t^3,
+\end{align*}
+known as the {\it Bernstein polynomials\/} of degree $2$ and $3$.
+
+\begin{itemize}
+ \item[(1)](10 points)
+Show that the Bernstein polynomials $B_0^2(t), B_1^2(t), B_2^2(t)$
+are expressed as linear combinations of the basis
+$(1, t, t^2)$ of the vector space of polynomials of degree at most $2$ 
+as follows:
+\[
+\begin{pmatrix}
+B_0^2(t)\\
+B_1^2(t)\\
+B_2^2(t)
+\end{pmatrix} = 
+\begin{pmatrix}
+1 & -2  & 1 \\
+0 &  2  & -2 \\
+0 &  0  & 1  
+\end{pmatrix} 
+\begin{pmatrix}
+1 \\
+t \\
+t^2
+\end{pmatrix}. 
+\]
+
+Prove that
+\[
+B_0^2(t) +  B_1^2(t) +  B_2^2(t) = 1.
+\]
+
+\item[(2)](10 points)
+Show that the Bernstein polynomials $B_0^3(t), B_1^3(t), B_2^3(t), B_3^3(t)$
+are expressed as linear combinations of the basis
+$(1, t, t^2, t^3)$ of the vector space of polynomials of degree at most $3$ 
+as follows:
+\[
+\begin{pmatrix}
+B_0^3(t)\\
+B_1^3(t)\\
+B_2^3(t) \\
+B_3^3(t) 
+\end{pmatrix} = 
+\begin{pmatrix}
+1 & -3  & 3 & -1 \\
+0 &  3  & -6 & 3 \\
+0 &  0  & 3  & -3 \\
+0 &  0  & 0  & 1
+\end{pmatrix} 
+\begin{pmatrix}
+1 \\
+t \\
+t^2\\
+t^3
+\end{pmatrix}. 
+\]
+
+Prove that
+\[
+B_0^3(t) +  B_1^3(t) +  B_2^3(t) + B_3^3(t) = 1.
+\]
+
+\item[(3)](10 points)
+Prove that the Bernstein polynomials of degree $2$
+are linearly independent, and that
+the Bernstein polynomials of degree $3$
+are linearly independent.
+ \end{itemize}
+
+
+\section*{Problem 3: 10 points}
+\label{prob-5.2}
+Prove that 
+for every vector space $E$, if $\mapdef{f}{E}{E}$ is an idempotent
+linear map, i.e., $f\circ f = f$, then we have a direct sum
+\[
+E = \Ker{f} \oplus \Im{f},
+\]
+so that $f$ is the projection onto its image $\Im{f}$.
+\newline $u \in E$
+\newline $u=f(u) + (u - f(u))$
+\newline $f(u)= \Im {f}$
+\newline $f(u-f(u))=f(u)-f(f(u))=f(u)-f(u)=0=\Ker{f}$
+\newline WTS $f(u) \cap f(u-f(u))=0$
+\newline since $0 \in f(u)$ and $f(u-f(u))=0 \implies f(u) \cap f(u-f(u))=f(u) \cap 0=0$
+
+
+\section*{Problem 4: 20 points plus 15 points Extra Credit}
+\label{prob-5.5}
+Given any vector space $E$, a linear map  $\mapdef{f}{E}{E}$  is an
+{\it involution\/} if  $f\circ f = \id$.
+
+\begin{itemize}
+\item[(1)](10 points)
+Prove that an  involution $f$ is invertible. What is its inverse?
+\newline $f$ is invertible if $f\circ f^{-1}= \id $
+\newline $f\circ f = \id \implies f\circ f^{-1} = \id \implies f=f^{-1}$
+\newline so $f$ is the inverse of $f$
+\item[(2)](10 points)
+Let $E_1$ and $E_{-1}$ be the subspaces of $E$ defined as follows:
+\begin{align*}
+E_1 & = \{u \in E \mid f(u) = u\} \\
+E_{-1} & = \{u \in E \mid f(u) = -u\}.
+\end{align*}
+Prove that we have a direct sum
+\[
+E = E_{1} \oplus E_{-1}.
+\]
+
+\hint
+For every $u\in E$, write
+\[
+u = \frac{u + f(u)}{2} + \frac{u - f(u)}{2}. 
+\]
+$f(\frac{u + f(u)}{2})=\frac{1}{2}\cdot (f(u)+f(f(u)))=\frac{1}{2}\cdot (f(u)+(u))=\frac{1}{2}\cdot (u+u)=\frac{1}{2}\cdot (2u)=u=E_1$
+\newline $f(\frac{u - f(u)}{2})=\frac{1}{2}\cdot (f(u)-f(f(u)))=\frac{1}{2}\cdot (f(u)-(u))=\frac{1}{2}\cdot (-u-u)=\frac{1}{2}\cdot (-2u)-u=E_{-1}$
+\newline
+\newline WTS $E_1 \cap E_{-1}=(0)$
+\newline
+\newline since $u \in E$ and $u \in E_{-1}$
+\newline then $f(u)=u=f(u)=-u$
+\newline so $u=-u \implies u=0 \implies E_1 \cap E_{-1}=(0)$
+
+
+\item[(3)]{ \bf Extra credit }(15 points)
+If $E$ is finite-dimensional and $f$ is an involution, prove that
+there is some basis of $E$ with respect to which the matrix of $f$ is of the form
+\[
+I_{k , n - k} =
+\begin{pmatrix}
+I_k & 0 \\
+0 & - I_{n - k}
+\end{pmatrix},
+\]
+where $I_k$ is the $k\times k$ identity matrix 
+(similarly for $I_{n -  k}$) and $k = \mathrm{dim}(E_1)$.
+Can you give a geometric interpretation of the action of $f$
+(especially when   $k = n - 1$)?
+
+\section*{Total: 70 points\qquad Extra Credit: 15 points}
+\end{itemize}
+
+
+\end{document}
