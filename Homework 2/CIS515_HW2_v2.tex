@@ -1,0 +1,986 @@
+\documentclass[12pt]{article}
+\usepackage{amsfonts,amssymb,amsmath}
+
+\setlength{\topmargin}{-.5in}
+\setlength{\oddsidemargin}{0 in}
+\setlength{\evensidemargin}{0 in}
+\setlength{\textwidth}{6.5truein}
+\setlength{\textheight}{8.5truein}
+
+
+\def\fseq#1#2{(#1_{#2})_{#2\geq 1}}
+\def\fsseq#1#2#3{(#1_{#3(#2)})_{#2\geq 1}}
+\def\qleq{\sqsubseteq}
+
+% \input ../mathmac.tex
+\input mathmac-v2.tex
+\input mac-new.tex
+%
+\begin{document}
+\begin{center}
+
+{\Large\bf Module 2\\
+\vspace{0.5cm}
+Matrices and Linear Maps}\\[10pt]
+Paul DeSanctis / Gordon Finn
+\end{center}
+
+\section*{Problem 1: 20 points total}
+\label{prob-3.2}
+\begin{itemize}
+\item[(1)](5 points)
+Prove that the column vectors of the matrix $A_2$ given by 
+\[
+A_2 = 
+\begin{pmatrix}
+1 & 1 & 1 & 1\\
+1 & 2 & 1 & 3 \\
+1 & 1 & 2 & 2 \\
+1 & 1 & 1 & 3
+\end{pmatrix}
+\]
+are linearly  independent.
+\newline 
+
+
+\[
+A_2^{-1} = 
+\begin{pmatrix}
+2 & -1 & -1 & 1\\
+0 & 1 & 0 & -1 \\
+-\frac{1}{2} & 0 & 1 & -\frac{1}{2} \\
+-\frac{1}{2} & 0 & 0 & \frac{1}{2}
+\end{pmatrix}
+\]
+$A_2^{-1}A_2=I$
+\newline $I_{11}=1(2)+1(0)+1(-\frac{1}{2})+1(-\frac{1}{2})=1$
+\newline $I_{12}=1(-1)+1(1)+1(0)+1(0)=0$
+\newline $I_{13}=1(-1)+1(0)+1(1)+1(0)=0$
+\newline $I_{14}=1(1)+1(-1)+1(-\frac{1}{2})+1(\frac{1}{2})=0$
+\newline $I_{21}=1(2)+2(0)+1(-\frac{1}{2})+3(-\frac{1}{2})=0$
+\newline $I_{22}=1(-1)+2(1)+1(0)+3(0)=1$
+\newline $I_{23}=1(-1)+2(0)+1(1)+3(0)=0$
+\newline $I_{24}=1(1)+2(-1)+1(-\frac{1}{2})+3(\frac{1}{2})=0$
+\newline $I_{31}=1(2)+1(0)+2(-\frac{1}{2})+2(-\frac{1}{2})=0$
+\newline $I_{32}=1(-1)+1(1)+2(0)+2(0)=0$
+\newline $I_{33}=1(-1)+1(0)+2(1)+2(0)=1$
+\newline $I_{34}=1(1)+1(-1)+2(-\frac{1}{2})+2(\frac{1}{2})=0$
+\newline $I_{41}=1(2)+1(0)+1(-\frac{1}{2})+3(-\frac{1}{2})=0$
+\newline $I_{42}=1(-1)+1(1)+1(0)+3(0)=0$
+\newline $I_{43}=1(-1)+1(0)+1(1)+3(0)=0$
+\newline $I_{44}=1(1)+1(-1)+1(-\frac{1}{2})+3(\frac{1}{2})=1$
+\[
+I = 
+\begin{pmatrix}
+1 & 0 & 0 & 0\\
+0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{pmatrix}
+\]
+
+
+ALTERNATE SOLUTION:
+
+We can prove linear independence by solving a linear system of equations such that the only solution for $a$, $b$, $c$, $d$ is 0. \\
+\begin{align*}
+    a * \begin{pmatrix}
+    1 \\
+    1 \\
+    1 \\
+    1 \\
+    \end{pmatrix} + b * \begin{pmatrix}
+    1 \\
+    2 \\
+    1 \\
+    1 \\
+    \end{pmatrix} + c * \begin{pmatrix}
+    1 \\
+    1 \\
+    2 \\
+    1 \\
+    \end{pmatrix} + d * \begin{pmatrix}
+    1 \\
+    3 \\
+    2 \\
+    3 \\
+    \end{pmatrix} &= \begin{pmatrix}
+    0 \\
+    0 \\
+    0 \\
+    0 \\
+    \end{pmatrix}
+\end{align*}
+
+\begin{align*}
+    a + b + c + d &= 0 \label{eq:one} \tag{1} \\
+    a + 2b + c + 3d &= 0 \label{eq:two} \tag{2}\\
+    a + b + 2c + 2d &= 0 \label{eq:three} \tag{3} \\
+    a + b + c + 3d &= 0 \label{eq:four} \tag{4} \\
+\end{align*}
+
+Subtracting \eqref{eq:one} from \eqref{eq:four} we get: 
+\[3d = 0\]
+
+Therefore, $d=0$. Subtracting \eqref{eq:two} from \eqref{eq:four}, we get:
+
+\[b = 0\]
+
+We now know that $b=0$. Using \eqref{eq:one},
+\begin{align*}
+    a + b + c + d &= 0 \\
+    a &= -b - c - d \\
+\end{align*}
+
+Substituting this into \eqref{eq:three}, we get:
+\begin{align*}
+    -b - c - d + + b + 2c + 2d &= 0 \\
+    c + d &= 0 \\
+    c + 0 &= 0 \\
+    c &= 0 \\
+\end{align*}
+
+Finally, we can use \eqref{eq:two} to solve for $a$:
+\begin{align*}
+    a + 2b + c + 3d &= 0 \\
+    a + 2 * 0 + 0 + 3 * 0 &= 0 \\
+    a &= 0 \\
+\end{align*}
+
+Thus, we have proven that the only solution to the linear system of equations is 0, proving this matrix's columns are linearly independent.
+
+
+
+
+
+\item[(2)](5 points)
+Prove that the column vectors of the matrix $B_2$ given by 
+\[
+B_2 = 
+\begin{pmatrix}
+1 & -2 & 2 & -2\\
+0 & -3 & 2 & -3 \\
+3 & -5 & 5 & -4 \\
+3 & -4 & 4 & -4
+\end{pmatrix}
+\]
+are linearly  independent.
+
+
+
+\[
+B_2^{-1} = 
+\begin{pmatrix}
+-2 & 0 & 0 & 1\\
+4\frac{1}{2} & -1 & -1 & -\frac{1}{2} \\
+4\frac{1}{2} & -1 & 0 & -1\frac{1}{2} \\
+-1\frac{1}{2} & 0 & 1 & -\frac{1}{2}
+\end{pmatrix}
+\]
+$B_2^{-1}B_2=I$
+\newline $I_{11}=1(-2)+-2(4\frac{1}{2})+2(4\frac{1}{2})+-2(-1\frac{1}{2})=1$
+\newline $I_{12}=1(0)+-2(-1)+2(-1)+-2(0)=0$
+\newline $I_{13}=1(0)+-2(-1)+2(0)+-2(1)=0$
+\newline $I_{14}=1(1)+-2(-\frac{1}{2})+2(-1\frac{1}{2})+-2(-\frac{1}{2})=0$
+\newline $I_{21}=0(-2)+-3(4\frac{1}{2})+2(4\frac{1}{2})+-3(-1\frac{1}{2})=0$
+\newline $I_{22}=0(0)+-3(-1)+2(-1)+-3(0)=1$
+\newline $I_{23}=0(0)+-3(-1)+2(0)+-3(1)=0$
+\newline $I_{24}=0(1)+-3(-\frac{1}{2})+2(-1\frac{1}{2})+-3(-\frac{1}{2})=0$
+\newline $I_{31}=3(-2)+-5(4\frac{1}{2})+5(4\frac{1}{2})+-4(-1\frac{1}{2})=0$
+\newline $I_{32}=3(0)+-5(-1)+5(-1)+-4(0)=0$
+\newline $I_{33}=3(0)+-5(-1)+5(0)+-4(1)=1$
+\newline $I_{34}=3(1)+-5(-\frac{1}{2})+5(-1\frac{1}{2})+-4(-\frac{1}{2})=0$
+\newline $I_{41}=3(-2)+-4(4\frac{1}{2})+4(4\frac{1}{2})+-4(-1\frac{1}{2})=0$
+\newline $I_{42}=3(0)+-4(-1)+4(-1)+-4(0)=0$
+\newline $I_{43}=3(0)+-4(-1)+4(0)+-4(1)=0$
+\newline $I_{44}=3(1)+-4(-\frac{1}{2})+4(-1\frac{1}{2})+-4(-\frac{1}{2})=1$
+\[
+I = 
+\begin{pmatrix}
+1 & 0 & 0 & 0\\
+0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{pmatrix}
+\]
+
+\newline ALTERNATE SOLUTION
+\newline 
+We can prove linear independence by solving a linear system of equations such that the only solution for $a$, $b$, $c$, $d$ is 0. \\
+\begin{align*}
+    a * \begin{pmatrix}
+    1 \\
+    0 \\
+    3 \\
+    3 \\
+    \end{pmatrix} + b * \begin{pmatrix}
+    -2 \\
+    -3 \\
+    -5 \\
+    -4 \\
+    \end{pmatrix} + c * \begin{pmatrix}
+    2 \\
+    2 \\
+    5 \\
+    4 \\
+    \end{pmatrix} + d * \begin{pmatrix}
+    -2 \\
+    -3 \\
+    -4 \\
+    -4 \\
+    \end{pmatrix} &= \begin{pmatrix}
+    0 \\
+    0 \\
+    0 \\
+    0 \\
+    \end{pmatrix}
+\end{align*}
+
+\begin{align*}
+    a - 2b + 2c - 2d &= 0 \label{eq:one} \tag{1} \\
+    -3b + 2c - 3d &= 0 \label{eq:two} \tag{2}\\
+    3a - 5b + 5c - 4d &= 0 \label{eq:three} \tag{3} \\
+    3a - 4b + 4c - 4d &= 0 \label{eq:four} \tag{4} \\
+\end{align*}
+
+Using \eqref{eq:one}, we can solve for $a$ as follows:
+\begin{align*}
+    a - 2b + 2c - 2d &= 0 \\
+    a = 2b - 2c + 2d \\
+\end{align*}
+
+We can substitute this into \eqref{eq:three}:
+\begin{align*}
+    3a - 5b + 5c - 4d &= 0 \\
+    3 * (2b - 2c + 2d) - 5b + 5c - 4d &= 0 \\
+    6b - 6c + 6d - 5b + 5c - 4d &= 0 \\
+    b - c + 2d &= 0 \\
+    b &= c - 2d \\
+\end{align*}
+
+Using \eqref{eq:four}, we can substitute $a$ and $b$ as follows: 
+\begin{align*}
+    3a - 4b + 4c - 4d &= 0 \\
+    3 * (2b - 2c + 2d) - 4 * (c - 2d) + 4c - 4d &= 0 \\
+    3 *(2 * (c - 2d) - 2c + 2d) - 4c + 8d + 4c - 4d &= 0 \\
+    3 * (2c - 4d - 2c + 2d) + 4d &= 0 \\
+    6c - 12d - 6c + 6d + 4d &= 0 \\
+    -2d &= 0 \\
+    d &= 0 \\
+\end{align*}
+
+Plugging this into \eqref{eq:two}, 
+\begin{align*}
+    -3b + 2c - 3d &= 0 \\
+    -3 * (c - 2d) + 2c - 3 * 0 &= 0 \\
+    -3c + 6d + 2c &= 0 \\
+    -c &= 0 \\
+    c &= 0 \\
+\end{align*}
+
+This implies that $b = c - 2d = 0 - 2 * 0 = 0$. This implies from the first solving for $a$: $a = 2b - 2c + 2d = 2 * 0 - 2 * 0 + 2 * 0 = 0$. Therefore we can say that the columns of $B_2$ are linearly independent.
+
+
+
+\item[(3)](10 points)
+Prove that the coordinates of the column vectors of the matrix $B_2$
+over the basis consisting of the column vectors of $A_2$ 
+are the columns of the matrix $P_2$ given by
+\[
+P_2 = 
+\begin{pmatrix}
+2 & 0 & 1 & -1\\
+-3 & 1 & -2 & 1 \\
+1 & -2 & 2 & -1 \\
+1 & -1 & 1 & -1
+\end{pmatrix} .
+\]
+
+$B2_{11}=2(1)+-3(1)+1(1)+1(1)=1$
+\newline $B2_{21}=2(1)+-3(2)+1(1)+1(3)=0$
+\newline $B2_{31}=2(1)+-3(1)+1(2)+1(2)=3$
+\newline $B2_{41}=2(1)+-3(1)+1(1)+1(3)=3$
+\newline $B2_{12}=0(1)+1(1)+-2(1)+-1(1)=-2$
+\newline $B2_{22}=0(1)+1(2)+-2(1)+-1(3)=-3$
+\newline $B2_{32}=0(1)+1(1)+-2(2)+-1(2)=-5$
+\newline $B2_{42}=0(1)+1(1)+-2(1)+-1(3)=-4$
+\newline $B2_{13}=1(1)+-2(1)+2(1)+1(1)=2$
+\newline $B2_{23}=1(1)+-2(2)+2(1)+1(3)=-2$
+\newline $B2_{33}=1(1)+-2(1)+2(2)+1(2)=5$
+\newline $B2_{43}=1(1)+-2(1)+2(1)+1(3)=4$
+\newline $B2_{14}=-1(1)+1(1)+-1(1)+-1(1)=-2$
+\newline $B2_{24}=-1(1)+1(2)+-1(1)+-1(3)=-3$
+\newline $B2_{34}=-1(1)+1(1)+-1(2)+-1(2)=-4$
+\newline $B2_{44}=-1(1)+1(1)+-1(1)+-1(3)=-4$
+
+ALTERNATE SOLUTION
+
+We need to solve: 
+\begin{align*}
+    \begin{pmatrix}
+    1 & 1 & 1 & 1\\
+    1 & 2 & 1 & 3 \\
+    1 & 1 & 2 & 2 \\
+    1 & 1 & 1 & 3
+    \end{pmatrix} *
+    \begin{pmatrix}
+    2 & 0 & 1 & -1\\
+    -3 & 1 & -2 & 1 \\
+    1 & -2 & 2 & -1 \\
+    1 & -1 & 1 & -1
+    \end{pmatrix} 
+    &=  \begin{pmatrix}
+    1 & -2 & 2 & -2\\
+    0 & -3 & 2 & -3 \\
+    3 & -5 & 5 & -4 \\
+    3 & -4 & 4 & -4 
+    \end{pmatrix}
+\end{align*}
+We can simplify this to be $a * p = c$, where the subscript represents, the row and then the column. We want to show that $b = c$.
+\begin{align*}
+    c_{1,1} &= 1 * 2 + 1 * -3 + 1 * 1 + 1 * 1 \\
+    c_{1,1} &= 2 - 3 + 1 + 1 \\
+    c_{1,1} &= 1 \\
+\end{align*}
+
+\begin{align*}
+    c_{1,2} &= 1 * 0 + 1 * 1 + 1 * -2 + 1 * -1 \\
+    c_{1,2} &= 0 + 1 - 2 - 1 \\
+    c_{1,2} &= -2 \\
+\end{align*}
+
+\begin{align*}
+    c_{1,3} &= 1 * 1 + 1 * -2 + 1 * 2 + 1 * 1 \\
+    c_{1,3} &= 1 - 2 + 2 + 1 \\
+    c_{1,3} &= 2 \\
+\end{align*}
+
+\begin{align*}
+    c_{1,4} &= 1 * -1 + 1 * 1 + 1 * -1 + 1 * -1 \\
+    c_{1,4} &= -1 + 1 - 1 - 1 \\
+    c_{1,4} &= -2 \\
+\end{align*}
+
+\begin{align*}
+    c_{2,1} &= 1 * 2 + 2 * -3 + 1 * 1 + 3 * 1 \\
+    c_{2,1} &= 2 - 6 + 1 + 3 \\
+    c_{2,1} &= 0 \\
+\end{align*}
+
+\begin{align*}
+    c_{2,2} &= 1 * 0 + 2 * 1 + 1 * -2 + 3 * -1 \\
+    c_{2,2} &= 0 + 2 - 2 - 3 \\
+    c_{2,2} &= -3 \\
+\end{align*}
+
+\begin{align*}
+    c_{2,3} &= 1 * 1 + 2 * -2 + 1 * 2 + 3 * 1 \\
+    c_{2,3} &= 1 - 4 + 2 + 3 \\
+    c_{2,3} &= 2 \\
+\end{align*}
+
+\begin{align*}
+    c_{2,4} &= 1 * -1 + 2 * 1 + 1 * -1 + 3 * -1 \\
+    c_{2,4} &= -1 + 2 - 1 - 3 \\
+    c_{2,4} &= -3 \\
+\end{align*}
+
+\begin{align*}
+    c_{3,1} &= 1 * 2 + 1 * -3 + 2 * 1 + 2 * 1 \\
+    c_{3,1} &= 2 - 3 + 2 + 2 \\
+    c_{3,1} &= 3  \\
+\end{align*}
+
+\begin{align*}
+    c_{3,2} &= 1 * 0 + 1 * 1 + 2 * -2 + 2 * -1 \\
+    c_{3,2} &= 0 + 1 - 4 - 2 \\
+    c_{3,2} &= -5  \\
+\end{align*}
+
+\begin{align*}
+    c_{3,3} &= 1 * 1 + 1 * -2 + 2 * 2 + 2 * 1 \\
+    c_{3,3} &= 1 - 2 + 4 + 2 \\
+    c_{3,3} &= 5  \\
+\end{align*}
+
+\begin{align*}
+    c_{3,4} &= 1 * -1 + 1 * 1 + 2 * -1 + 2 * -1 \\
+    c_{3,4} &= -1 + 1 - 2 - 2 \\
+    c_{3,4} &= -4  \\
+\end{align*}
+
+\begin{align*}
+    c_{4,1} &= 1 * 2 + 1 * -3 + 1 * 1 + 3 * 1 \\
+    c_{4,1} &= 2 - 3 + 1 + 3 \\
+    c_{4,1} &= 3  \\
+\end{align*}
+
+\begin{align*}
+    c_{4,2} &= 1 * 0 + 1 * 1 + 1 * -2 + 3 * -1 \\
+    c_{4,2} &= 0 + 1 - 2 - 3 \\
+    c_{4,2} &= -4  \\
+\end{align*}
+
+\begin{align*}
+    c_{4,3} &= 1 * 1 + 1 * -2 + 1 * 2 + 3 * 1 \\
+    c_{4,3} &= 1 - 2 + 2 + 3 \\
+    c_{4,3} &= 4  \\
+\end{align*}
+
+\begin{align*}
+    c_{4,4} &= 1 * -1 + 1 * 1 + 1 * -1 + 3 * -1 \\
+    c_{4,4} &= -1 + 1 - 1 - 3 \\
+    c_{4,4} &= -4  \\
+\end{align*}
+
+Thus we have proven that the coordinates of the column vectors of the matrix $B_2$ over the basis consisting of the column vectors of $A_2$ are the columns of the matrix $P_2$ since $b = c$. \\
+
+
+Check that $A_2P_2 = B_2$.
+\newline Done.
+\newline Prove that
+\[
+P_2^{-1} = 
+\begin{pmatrix}
+-1 & -1 & -1 & 1\\
+2 & 1 & 1 & -2 \\
+2 & 1 & 2 & -3 \\
+-1 & -1 & 0 & -1
+\end{pmatrix} .
+\]
+$P_2^{-1}P_2=I$
+\newline $I_{11}=2(-1)+0(2)+1(2)+-1(-1)=1$
+\newline $I_{12}=2(-1)+0(1)+1(1)+-1(-1)=0$
+\newline $I_{13}=2(-1)+0(1)+1(2)+-1(0)=0$
+\newline $I_{14}=2(1)+0(-2)+1(-3)+-1(-1)=0$
+\newline $I_{21}=-3(-1)+1(2)+-2(2)+1(-1)=0$
+\newline $I_{22}=-3(-1)+1(1)+-2(1)+1(-1)=1$
+\newline $I_{23}=-3(-1)+1(1)+-2(2)+1(0)=0$
+\newline $I_{24}=-3(1)+1(-2)+-2(-3)+1(-1)=0$
+\newline $I_{31}=1(-1)+-2(2)+2(2)+-1(-1)=0$
+\newline $I_{32}=1(-1)+-2(1)+2(1)+-1(-1)=0$
+\newline $I_{33}=1(-1)+-2(1)+2(2)+-1(0)=1$
+\newline $I_{34}=1(1)+-2(-2)+2(-3)+-1(-1)=0$
+\newline $I_{41}=1(-1)+-1(2)+1(2)+-1(-1)=0$
+\newline $I_{42}=1(-1)+-1(1)+1(1)+-1(-1)=0$
+\newline $I_{43}=1(-1)+-1(1)+1(2)+-1(0)=0$
+\newline $I_{44}=1(1)+-1(-2)+1(-3)+-1(-1)=1$
+\[
+I = 
+\begin{pmatrix}
+1 & 0 & 0 & 0\\
+0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{pmatrix}
+\]
+
+ALTERNATE SOLUTION
+\newline 
+To prove that this is the inverse of $P_2$, we can multiply the two matrices together and if they equal the identity matrix, we can say that this is indeed the inverse of $P_2$.
+
+\begin{align*}
+    \begin{pmatrix}
+    2 & 0 & 1 & -1\\
+    -3 & 1 & -2 & 1 \\
+    1 & -2 & 2 & -1 \\
+    1 & -1 & 1 & -1
+    \end{pmatrix} *
+    \begin{pmatrix}
+    -1 & -1 & -1 & 1\\
+    2 & 1 & 1 & -2 \\
+    2 & 1 & 2 & -3 \\
+    -1 & -1 & 0 & -1
+    \end{pmatrix} &= 
+    \begin{pmatrix}
+    1 & 0 & 0 & 0 \\
+    0 & 1 & 0 & 0 \\
+    0 & 0 & 1 & 0 \\
+    0 & 0 & 0 & 1
+    \end{pmatrix}
+\end{align*}
+
+We will solve for the matrix, $c$ as we did before and then will check to see if $c$ is equal to $I$. 
+
+\begin{align*}
+    c_{1,1} &= 2 * -1 + 0 * 2 + 1 * 2 + -1 * -1 \\
+    c_{1,1} &= -2 + 0 + 2 + 1 \\
+    c_{1,1} &= 1 \\
+\end{align*}
+
+\begin{align*}
+    c_{1,2} &= 2 * -1 + 0 * 1 + 1 * 1 + -1 * -1 \\
+    c_{1,2} &= -2 + 0 + 1 + 1 \\
+    c_{1,2} &= 2 \\
+\end{align*}
+
+\begin{align*}
+    c_{1,3} &= 2 * -1 + 0 * 1 + 1 * 2 + -1 * 0 \\
+    c_{1,3} &= -2 + 0 + 2 + 0 \\
+    c_{1,3} &= 0 \\
+\end{align*}
+
+\begin{align*}
+    c_{1,4} &= 2 * 1 + 0 * -2 + 1 * -3 + -1 * -1 \\
+    c_{1,4} &= 2 + 0 - 3 + 1 \\
+    c_{1,4} &= 0 \\
+\end{align*}
+
+\begin{align*}
+    c_{2,1} &= -3 * -1 + 1 * 2 + -2 * 2 + 1 * -1 \\
+    c_{2,1} &= 3 + 2 - 4 - 1 \\
+    c_{2,1} &= 0 \\
+\end{align*}
+
+\begin{align*}
+    c_{2,2} &= -3 * -1 + 1 * 1 + -2 * 1 + 1 * -1 \\
+    c_{2,2} &= 3 + 1 - 2 - 1 \\
+    c_{2,2} &= 1 \\
+\end{align*}
+
+\begin{align*}
+    c_{2,3} &= -3 * -1 + 1 * 1 + -2 * 2 + 1 * 0 \\
+    c_{2,3} &= 3 + 1 - 4 + 0 \\
+    c_{2,3} &= 0 \\
+\end{align*}
+
+\begin{align*}
+    c_{2,4} &= -3 * 1 + 1 * -2 + -2 * -3 + 1 * -1 \\
+    c_{2,4} &= -3 - 2 + 6 - 1 \\
+    c_{2,4} &= 0 \\
+\end{align*}
+
+\begin{align*}
+    c_{3,1} &= 1 * -1 + -2 * 2 + 2 * 2 + -1 * -1 \\
+    c_{3,1} &= -1 - 4 + 4 + 1 \\
+    c_{3,1} &= 0  \\
+\end{align*}
+
+\begin{align*}
+    c_{3,2} &= 1 * -1 + -2 * 1 + 2 * 2 + -1 * -1 \\
+    c_{3,2} &= -1 - 2 + 4 + 1 \\
+    c_{3,2} &= 0  \\
+\end{align*}
+
+\begin{align*}
+    c_{3,3} &= 1 * -1 + -2 * 1 + 2 * 2 + -1 * 0 \\
+    c_{3,3} &= -1 - 2 + 4 + 0 \\
+    c_{3,3} &= 1  \\
+\end{align*}
+
+\begin{align*}
+    c_{3,4} &= 1 * 1 + -2 * -2 + 2 * -3 + -1 * -1 \\
+    c_{3,4} &= 1 + 4 - 6 + 1 \\
+    c_{3,4} &= 0  \\
+\end{align*}
+
+\begin{align*}
+    c_{4,1} &= 1 * -1 + -1 * 2 + 1 * 2 + -1 * -1 \\
+    c_{4,1} &= -1 - 2 + 2 + 1 \\
+    c_{4,1} &= 0  \\
+\end{align*}
+
+\begin{align*}
+    c_{4,1} &= 1 * -1 + -1 * 1 + 1 * 1 + -1 * -1 \\
+    c_{4,2} &= -1 - 1 + 1 + 1 \\
+    c_{4,2} &= 0  \\
+\end{align*}
+
+\begin{align*}
+    c_{4,3} &= 1 * -1 + -1 * 1 + 1 * 2 + -1 * 0 \\
+    c_{4,3} &= -1 - 1 + 2 + 0 \\
+    c_{4,3} &= 0  \\
+\end{align*}
+
+\begin{align*}
+    c_{4,4} &= 1 * 1 + -1 * -2 + 1 * -3 + -1 * -1 \\
+    c_{4,4} &= 1 + 2 - 3 + 1 \\
+    c_{4,4} &= 1  \\
+\end{align*}
+
+Therefore we can see that $c=I$ which is the identity matrix proving that $P_2^{-1}$ is indeed the inverse of $P_2$. \\
+\newline 
+
+What are the coordinates over the basis consisting of the
+column vectors of $B_2$ of the vector whose coordinates over the
+basis  consisting of the column vectors of $A_2$ are
+$(2, -3, 0, 0)$?
+\end{itemize}
+$old=(2,-3,0,0)$
+\newline $new=A_2^{-1}\cdot old$
+\newline $new_1=(2)(2)+(-1)(-3)+(-1)(0)+(-1)(0)=7$
+\newline $new_2=(0)(2)+(1)(-3)+(0)(0)+(-1)(0)=-3$
+\newline $new_2=(-\frac{1}{2})(2)+(0)(-3)+(1)(0)+(-\frac{1}{2})(0)=-1$
+\newline $new_4=(-\frac{1}{2})(2)+(0)(-3)+(0)(0)+(\frac{1}{2})(0)=-1$
+
+\[
+A_2^{-1} \cdot old  = 
+\begin{pmatrix}
+2 & -1 & -1 & 1\\
+0 & 1 & 0 & -1 \\
+-\frac{1}{2} & 0 & 1 & -\frac{1}{2} \\
+-\frac{1}{2} & 0 & 0 & \frac{1}{2}
+\end{pmatrix}\cdot 
+\begin{pmatrix}
+2\\
+-3\\
+0\\
+0
+\end{pmatrix} =
+\begin{pmatrix}
+7\\
+-3\\
+-1\\
+-1
+\end{pmatrix} = new
+\] 
+
+
+ALTERNATE SOLUTION
+\newline 
+
+To find these new coordinates, we can use the equation from the lectures where $U$ represents the old basis ($A$) and $V$ represents the new basis ($B$). We know the following equation: \\
+\begin{align*}
+    x_U &= P_{v,u}x_V \\
+\end{align*}
+
+We are given  $X_U$ and want to find $x_V$. Solving for $x_V$, we get: 
+\begin{align*}
+    x_V &= P_{V,U}^-1x_U \\
+\end{align*}
+
+We can substitute the given vector, $x_U$, and the inverse matrix to get:
+\begin{align*}
+    x_V &= \begin{pmatrix}
+    -1 & -1 & -1 & 1\\
+    2 & 1 & 1 & -2 \\
+    2 & 1 & 2 & -3 \\
+    -1 & -1 & 0 & -1
+    \end{pmatrix} * \begin{pmatrix}
+    2 \\
+    -3 \\
+    0 \\
+    0 
+    \end{pmatrix} \\
+    \end{align*}
+
+\begin{align*}
+    x_{V_{1}} &= 2 * -1 + 2 * 2 + 2 * 2 + -1 * 2 \\
+    x_{V_{1}} &= -2 + 4 + 4 - 2 \\
+    x_{V_{1}} &= 2 \\
+\end{align*}
+
+\begin{align*}
+    x_{V_{2}} &= -3 * -1 + -3 * 1 + -3 * 1 + -3 * -2 \\
+    x_{V_{2}} &=  3 - 3 - 3 + 6\\
+    x_{V_{2}} &= 3 \\
+\end{align*}
+
+\begin{align*}
+    x_{V_{3}} &= 0 * -1 + 0 * 1 + 0 * 2 + 0 * 0 \\
+    x_{V_{3}} &= 0 \\
+\end{align*}
+
+\begin{align*}
+    x_{V_{4}} &= 0 * 1 + 0 * -2 + 0 * -3 + 0 * -1 \\
+    x_{V_{4}} &= 0 \\
+\end{align*}
+
+So the new coordinates are $(2,3,0,0)$.
+
+
+
+
+\section*{Problem 2: 30 points total}
+\label{prob-3.3}
+Consider the polynomials
+\begin{align*}
+B_0^2(t) & = (1 - t)^2  & B_1^2(t)  & = 2(1 - t)t & B_2^2(t) & = t^2 
+&   &    \\
+B_0^3(t) & = (1 - t)^3  & B_1^3(t) & = 3(1 - t)^2t & B_2^3(t) & = 3(1 - t)t^2 
+ &  B_3^3(t) & = t^3,
+\end{align*}
+known as the {\it Bernstein polynomials\/} of degree $2$ and $3$.
+
+\begin{itemize}
+ \item[(1)](10 points)
+Show that the Bernstein polynomials $B_0^2(t), B_1^2(t), B_2^2(t)$
+are expressed as linear combinations of the basis
+$(1, t, t^2)$ of the vector space of polynomials of degree at most $2$ 
+as follows:
+\[
+\begin{pmatrix}
+B_0^2(t)\\
+B_1^2(t)\\
+B_2^2(t)
+\end{pmatrix} = 
+\begin{pmatrix}
+1 & -2  & 1 \\
+0 &  2  & -2 \\
+0 &  0  & 1  
+\end{pmatrix} 
+\begin{pmatrix}
+1 \\
+t \\
+t^2
+\end{pmatrix}. 
+\]
+Multiplying this out, we get that the matrix represented by the Bernstein polynomials is as follows: 
+\begin{align*}
+    \begin{pmatrix}
+    B_0^2(t) = 1 * 1 + -2 * t + 1 * t^2 \\
+    B_1^2(t) = 0 * 1 + 2 * t + -2 * t^2 \\
+    B_2^2(t) = 0 * 1 + 0 * t + 1 * t^2 \\
+    \end{pmatrix} &= \\
+    \begin{pmatrix}
+    B_0^2(t) = 1 + -2t + t^2 \\
+    B_1^2(t) = 0 + 2t + -2t^2 \\
+    B_2^2(t) = 0 + 0t + t^2 \\
+    \end{pmatrix} &= \\
+    \begin{pmatrix}
+    B_0^2(t) = (1 - t)^2 \\
+    B_1^2(t) = 2(1 - t)t \\
+    B_2^2(t) = t^2 \\
+    \end{pmatrix}
+\end{align*}
+
+Prove that
+\[
+B_0^2(t) +  B_1^2(t) +  B_2^2(t) = 1.
+\]
+Substituting the definitions of the Bernstein polynomials, we get:
+\begin{align*}
+    B_0^2(t) +  B_1^2(t) +  B_2^2(t) &= 1 \\
+    (1 - t)^2 + 2(1 - t)t + t^2 &= 1 \\
+    t^2 - 2t + 1 + 2t - 2t^2 + t^2 &= 1 \\
+    1 &= 1 \\
+\end{align*}
+Therefore we can show that the Bernstein polynomials of degree 2 combine to equal 1.
+\item[(2)](10 points)
+Show that the Bernstein polynomials $B_0^3(t), B_1^3(t), B_2^3(t), B_3^3(t)$
+are expressed as linear combinations of the basis
+$(1, t, t^2, t^3)$ of the vector space of polynomials of degree at most $3$ 
+as follows:
+\[
+\begin{pmatrix}
+B_0^3(t)\\
+B_1^3(t)\\
+B_2^3(t) \\
+B_3^3(t) 
+\end{pmatrix} = 
+\begin{pmatrix}
+1 & -3  & 3 & -1 \\
+0 &  3  & -6 & 3 \\
+0 &  0  & 3  & -3 \\
+0 &  0  & 0  & 1
+\end{pmatrix} 
+\begin{pmatrix}
+1 \\
+t \\
+t^2\\
+t^3
+\end{pmatrix}. 
+\]
+Multiplying this out, we can solve for the Bernstein polynomials of degree 3 and check to see if they are equal to the definition of the Bernstein polynomials.
+
+\begin{align*}
+    \begin{pmatrix}
+    B_0^3(t) = 1 * 1 + -3 * t + 3 * t^2 + -1 * t^3 \\
+    B_1^3(t) = 0 * 1 + 3 * t + -6 * t^2 + 3 & t^3 \\
+    B_2^3(t) = 0 * 1 + 0 * t + 3 * t^2 + -3 * t^3 \\
+    B_3^3(t) = 0 * 1 + 0 * t + 0 * t^2 + 1 * t^3
+    \end{pmatrix} &= \\
+    \begin{pmatrix}
+        B_0^3(t) = 1 - 3t + 3t^2 - t^3 \\
+        B_1^3(t) = 0 + 3t - 6t^2 + 3t^3 \\
+        B_2^3(t) = 0 + 0 + 3t^2 - 3t^3 \\
+        B_3^3(t) = t^3
+    \end{pmatrix} &= \\
+    \begin{pmatrix}
+        B_0^3(t) = -t^3 + 3t^2 - 3t + 1 \\
+        B_1^3(t) = 3(1 - 2t + t^2)t \\
+        B_2^3(t) = 3(1 - t)t^2 \\
+        B_3^3(t) = t^3 
+    \end{pmatrix} &= \\
+    \begin{pmatrix}
+        B_0^3(t) = (1 - t)^3 \\
+        B_1^3(t) = 3(1 - t)^2t \\
+        B_2^3(t) = 3(1 - t)t^2 \\
+        B_3^3(t) = t^3
+    \end{pmatrix}
+\end{align*}
+Prove that
+\[
+B_0^3(t) +  B_1^3(t) +  B_2^3(t) + B_3^3(t) = 1.
+\]
+Substituting the definition for the Bernstein polynomials of degree 3 we get:
+\begin{align*}
+    B_0^3(t) +  B_1^3(t) +  B_2^3(t) + B_3^3(t) &= 1 \\
+    (1 - t)^3 + 3(1 - t)^2t + 3(1 - t)t^2 + t^3 &= 1 \\
+    -t^3 + 3t^2 - 3t + 1 + 3t - 6t^2 + 3t^3+ 3t^2 - 3t^3 + t^3 &= 1 \\
+    1 &= 1 \\
+\end{align*}
+\item[(3)](10 points)
+Prove that the Bernstein polynomials of degree $2$
+are linearly independent, and that
+the Bernstein polynomials of degree $3$
+are linearly independent.
+ \end{itemize}
+Bernstein Polynomials of degree 2 proof: \\
+
+\[
+B2 = 
+\begin{pmatrix}
+1 & -2 & 1\\
+0 & 2 & -2 \\
+0 & 0 & 1 \\
+\end{pmatrix}
+\]
+\[
+B2^{-1} = 
+\begin{pmatrix}
+1 & 1 & 1\\
+0 & \frac{1}{2} & 1 \\
+0 & 0 & 1 \\
+\end{pmatrix}
+\]
+$B2^{-1}B2=I$
+\newline $I_{11}=1(1)+-2(0)+1(0)=1$
+\newline $I_{12}=1(1)+-2(\frac{1}{2})+1(0)=0$
+\newline $I_{13}=1(1)+-2(1)+1(1)=0$
+\newline $I_{21}=0(1)+-2(0)+1(0)=0$
+\newline $I_{22}=0(1)+2(\frac{1}{2})+-2(0)=1$
+\newline $I_{23}=0(1)+2(1)+-2(1)=0$
+\newline $I_{31}=0(1)+0(0)+1(0)=0$
+\newline $I_{32}=0(1)+0(\frac{1}{2})+1(0)=0$
+\newline $I_{33}=0(1)+0(1)+1(1)=1$
+\[
+I = 
+\begin{pmatrix}
+1 & 0 & 0\\
+0 & 1 & 0 \\
+0 & 0 & 1 
+\end{pmatrix}
+\]
+Bernstein Polynomials of degree 3 proof: \\
+
+\[
+B3 = 
+\begin{pmatrix}
+1 & -3  & 3 & -1 \\
+0 &  3  & -6 & 3 \\
+0 &  0  & 3  & -3 \\
+0 &  0  & 0  & 1
+\end{pmatrix} 
+\]
+
+\[
+B3^{-1} = 
+\begin{pmatrix}
+1 & 1  & 1 & 1 \\
+0 &  \frac{1}{3}  & \frac{2}{3} & 1 \\
+0 &  0  & \frac{1}{3}  & 1 \\
+0 &  0  & 0  & 1
+\end{pmatrix} 
+\]
+$B3^{-1}B3=I$
+\newline $I_{11}=1(1)+-3(0)+3(0)+-1(0)=1$
+\newline $I_{12}=1(1)+-3(\frac{1}{3})+3(0)+-1(0)=0$
+\newline $I_{13}=1(1)+-3(\frac{2}{3})+3(\frac{1}{3})+-1(0)=0$
+\newline $I_{14}=1(1)+-3(1)+3(1)+-1(1)=0$
+\newline $I_{21}=0(1)+3(0)+-6(0)+3(0)=0$
+\newline $I_{22}=0(1)+3(\frac{1}{3})+-6(0)+3(0)=1$
+\newline $I_{23}=0(1)+3(\frac{2}{3})+-6(\frac{1}{3})+3(0)=0$
+\newline $I_{24}=0(1)+3(1)+-6(1)+3(1)=0$
+\newline $I_{31}=0(1)+0(0)+3(0)+-3(0)=0$
+\newline $I_{32}=0(1)+0(\frac{1}{3})+3(0)+-3(0)=0$
+\newline $I_{33}=0(1)+0(\frac{2}{3})+3(\frac{1}{3})+-3(0)=1$
+\newline $I_{34}=0(1)+0(1)+3(1)+-3(1)=0$
+\newline $I_{41}=0(1)+0(0)+0(0)+1(0)=0$
+\newline $I_{42}=0(1)+0(\frac{1}{3}1)+0(0)+1(0)=0$
+\newline $I_{43}=0(1)+0(\frac{2}{3})+0(\frac{1}{3})+1(0)=0$
+\newline $I_{44}=0(1)+0(1)+0(1)+1(1)=1$
+\[
+I = 
+\begin{pmatrix}
+1 & 0 & 0 & 0\\
+0 & 1 & 0 & 0 \\
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & 1
+\end{pmatrix}
+\]
+
+\section*{Problem 3: 10 points}
+\label{prob-5.2}
+Prove that 
+for every vector space $E$, if $\mapdef{f}{E}{E}$ is an idempotent
+linear map, i.e., $f\circ f = f$, then we have a direct sum
+\[
+E = \Ker{f} \oplus \Im{f},
+\]
+so that $f$ is the projection onto its image $\Im{f}$.
+\newline $u \in E$
+\newline $u=f(u) + (u - f(u))$
+\newline $f(u)= \Im {f}$
+\newline $f(u-f(u))=f(u)-f(f(u))=f(u)-f(u)=0=\Ker{f}$
+\newline WTS $f(u) \cap f(u-f(u))=0$
+\newline since $0 \in f(u)$ and $f(u-f(u))=0 \implies f(u) \cap f(u-f(u))=f(u) \cap 0=0$
+
+
+\section*{Problem 4: 20 points plus 15 points Extra Credit}
+\label{prob-5.5}
+Given any vector space $E$, a linear map  $\mapdef{f}{E}{E}$  is an
+{\it involution\/} if  $f\circ f = \id$.
+
+\begin{itemize}
+\item[(1)](10 points)
+Prove that an  involution $f$ is invertible. What is its inverse?
+\newline $f$ is invertible if $f\circ f^{-1}= \id $
+\newline $f\circ f = \id \implies f\circ f^{-1} = \id \implies f=f^{-1}$
+\newline so $f$ is the inverse of $f$
+\item[(2)](10 points)
+Let $E_1$ and $E_{-1}$ be the subspaces of $E$ defined as follows:
+\begin{align*}
+E_1 & = \{u \in E \mid f(u) = u\} \\
+E_{-1} & = \{u \in E \mid f(u) = -u\}.
+\end{align*}
+Prove that we have a direct sum
+\[
+E = E_{1} \oplus E_{-1}.
+\]
+
+\hint
+For every $u\in E$, write
+\[
+u = \frac{u + f(u)}{2} + \frac{u - f(u)}{2}. 
+\]
+$f(\frac{u + f(u)}{2})=\frac{1}{2}\cdot (f(u)+f(f(u)))=\frac{1}{2}\cdot (f(u)+(u))=\frac{1}{2}\cdot (u+u)=\frac{1}{2}\cdot (2u)=u=E_1$
+\newline $f(\frac{u - f(u)}{2})=\frac{1}{2}\cdot (f(u)-f(f(u)))=\frac{1}{2}\cdot (f(u)-(u))=\frac{1}{2}\cdot (-u-u)=\frac{1}{2}\cdot (-2u)-u=E_{-1}$
+\newline
+\newline WTS $E_1 \cap E_{-1}=(0)$
+\newline
+\newline since $u \in E$ and $u \in E_{-1}$
+\newline then $f(u)=u=f(u)=-u$
+\newline so $u=-u \implies u=0 \implies E_1 \cap E_{-1}=(0)$
+
+
+\item[(3)]{ \bf Extra credit }(15 points)
+If $E$ is finite-dimensional and $f$ is an involution, prove that
+there is some basis of $E$ with respect to which the matrix of $f$ is of the form
+\[
+I_{k , n - k} =
+\begin{pmatrix}
+I_k & 0 \\
+0 & - I_{n - k}
+\end{pmatrix},
+\]
+where $I_k$ is the $k\times k$ identity matrix 
+(similarly for $I_{n -  k}$) and $k = \mathrm{dim}(E_1)$.
+Can you give a geometric interpretation of the action of $f$
+(especially when   $k = n - 1$)?
+
+\section*{Total: 70 points\qquad Extra Credit: 15 points}
+\end{itemize}
+
+
+\end{document}
